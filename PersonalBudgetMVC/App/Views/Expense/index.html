@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block footer %}
+
+<script>
+window.onload = function today()
+{
+		let d = new Date();
+		let currDate = d.getDate();
+		let currMonth = d.getMonth()+1;
+		let currYear = d.getFullYear();
+				
+		document.getElementById("days").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+		document.getElementById("days2").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+}
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+                    <div class="col-lg-3 register-left">
+
+						<div id="icon"><i class="icon-money-1"></i></div>
+
+                        <p> "Sposoby wzbogacania się są liczne. Oszczędzanie jest jednym z najlepszych." <br> – Francis Bacon –</p>
+                     </div>
+					
+                    <div class="col-lg-9 register-right">
+                        
+						
+                        <div class="tab-content" id="myTabContent">
+						
+							<form method="post" action="/expense/create">
+							
+                                <h3 class="register-heading2">Wprowadź dane wydatku:</h3>
+								
+                                <div class="row register-form">
+								
+                                    <div class="col-md-10 inputs offset-md-1">
+
+                                        <div class="form-group col-md-9 mx-auto">
+											<div class="icons">
+												<i class='icon-pencil'></i>
+											</div>
+											<input type="number"  class="form-control" name="amount" step="0.01" placeholder="Kwota *" value="" required />
+                                        </div>     
+										
+										<div class="form-group col-md-9 mx-auto">
+											<div class="icons">
+												<i class='icon-calendar'></i>
+											</div>
+											<input type="date" id="days"  class="form-control" name="day" value="" min="1900-01-01" max="2500-01-01" required />
+                                        </div>
+										
+										<div class="form-group col-md-9 mx-auto">
+											<div class="icons">
+												<i class='icon-wallet'></i>
+											</div>
+											<select class="form-control category" name="pay">
+											
+												<option value="0" selected disabled>Sposób płatności *</option>
+												<option value="Gotówka">Gotówka</option>
+												<option value="Karta debetowa">Karta debetowa</option>
+												<option value="Karta kredytowa">Karta kredytowa</option>
+											
+											</select>
+                                        </div>
+										
+                                        <div class="form-group col-md-9 mx-auto">
+											<div class="icons">
+												<i class='icon-list-bullet'></i>
+											</div>
+											<select class="form-control category" name="category">
+											
+												<option value="0" selected disabled>Kategorie wydatku *</option>
+												<option value="Transport">Transport</option>
+												<option value="Książki">Książki</option>
+												<option value="Jedzenie">Jedzenie</option>
+												<option value="Mieszkanie">Mieszkanie</option>
+												<option value="Telekomunikacja">Telekomunikacja</option>
+												<option value="Opieka zdrowotna">Opieka zdrowotna</option>
+												<option value="Ubranie">Ubranie</option>
+												<option value="Higiena">Higiena</option>
+												<option value="Dzieci">Dzieci</option>
+												<option value="Rozrywka">Rozrywka</option>
+												<option value="Wycieczka">Wycieczka</option>
+												<option value="Oszczędności">Oszczędności</option>
+												<option value="Na emeryture">Na emeryture</option>
+												<option value="Spłata długów">Spłata długów</option>
+												<option value="Darowizna">Darowizna</option>
+												<option value="Inne">Inne...</option>
+											
+											</select>
+                                        </div>
+										
+										<div class="form-group col-md-9 mx-auto">
+											<div class="icons">
+												<i class='icon-pencil'></i>
+											</div>
+                                            <input type="text" class="form-control" placeholder="Komentarz *" name="comment"
+											value="" />
+                                        </div>
+										
+                                    </div>
+
+									{% if session.ok2 %}
+												
+									<div id='name2' class='add'>{{ session.ok2 }}</div>
+									
+									{% endif %}
+							
+									<div class="col-md-12 buttonsExpense">
+									
+										<input type="submit" class="btn-success btnRegister2"  value="Dodaj"/>
+										
+										<input type="reset" class="btn-danger btnRegister2"  value="Anuluj"/>
+									
+									</div>
+
+                                </div>
+								
+							</form>	
+							
+                        </div>
+						
+                    </div>
+
+{% endblock %}

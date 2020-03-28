@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block footer %}
+
+<script>
+window.onload = function today()
+{
+		let d = new Date();
+		let currDate = d.getDate();
+		let currMonth = d.getMonth()+1;
+		let currYear = d.getFullYear();
+				
+		document.getElementById("days").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+		document.getElementById("days2").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+}
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+                    <div class="col-lg-3 register-left">
+
+						<div id="icon"><i class="icon-money-1"></i></div>
+
+                        <p>"Oszczędność jest to umiejętność unikania zbędnych wydatków." <br> – Seneka Młodszy –</p>
+                    </div>
+
+                    <div class="col-lg-9 register-right">
+                        		
+                        <div class="tab-content" id="myTabContent">
+						
+							<form method="post" action="/income/create">
+							
+                                <h3 class="register-heading2">Wprowadź dane przychodu:</h3>
+
+                                <div class="row register-form">
+									
+										<div class="col-md-10 inputs offset-md-1">
+										
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-pencil'></i>
+												</div>
+												<input type="number"  class="form-control" name="amount" step="0.01" placeholder="Kwota *" value="" required />
+											</div>     
+											
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-calendar'></i>
+												</div>
+												<input type="date" id="days" class="form-control" name="day" value="" min="1900-01-01" max="2500-01-01" required />
+											</div>
+											
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-list-bullet'></i>
+												</div>
+												<select class="form-control category" name="category">
+												
+													<option value="zero" selected disabled>Kategorie przychodu *</option>
+													<option value="Wynagrodzenie">Wynagrodzenie</option>
+													<option value="Odsetki bankowe">Odsetki bankowe</option>
+													<option value="Allegro">Sprzedaż na allegro</option>
+													<option value="Inne">Inne...</option>
+												
+												</select>
+											</div>
+											
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-pencil'></i>
+												</div>
+												<input type="text" class="form-control" placeholder="Komentarz *" name="comment" value="" />
+											</div>
+												
+										</div>
+										
+										{% if session.ok %}	
+										
+										<div id='name2' class='add'>{{ session.ok }}</div>
+										
+										{% endif %}
+								
+										<div class="col-md-12 buttons">
+										
+											<input type="submit" class="btn-success btnRegister2"  value="Dodaj"/>
+											
+											<input type="reset" class="btn-danger btnRegister2"  value="Anuluj"/>
+										
+										</div>
+
+                                </div>
+								
+							</form>
+							
+                        </div>
+						
+                    </div>
+
+{% endblock %}

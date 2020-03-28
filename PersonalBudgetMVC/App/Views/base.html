@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+    <meta charset="UTF-8">
+    <title>{% block title %}Aplikacja budżetu osobistego{% endblock %}</title>
+	
+	<meta name="description" content="Aplikacja do prowadzenia budżetu osobistego">
+	<meta name="keywords" content="budzet, budżet, aplikacja, finanse, prowadzenie budżetu">
+	<meta name="author" content="Kamil Pieraszko">
+	<meta http-equiv="X-Ua-Compatible" content="IE=edge">
+	
+	<link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/cssFontello/fontello.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Philosopher&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="/image/vnd.microsoft.icon" href="/img/portfel.png">
+
+	<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body class="bg-dark">
+	
+	<header>	
+		<div class="logo2">
+		<img src="/img/napis5.png" class="img-fluid" alt="logo"/>
+		</div>
+		
+		{% if current_user %}
+		
+		<nav class="navbar navbar-custom bg-gold navbar-expand-lg mb-4 mt-1 menu">
+		
+			<a class="navbar-brand" href="#"></a>
+			
+			<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
+				<span class="navbar-toggler-icon"><i class="icon-menu"></i></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="mainmenu">
+				
+				<ul class="navbar-nav mx-auto">
+				
+					<li class="nav-item">
+						<a class="nav-link" href="/items/index"><i class="icon-home"></i> Strona Główna </a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/income/index"><i class="icon-dollar"></i> Dodaj Przychód </a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/expense/index"><i class="icon-bag"></i> Dodaj Wydatek </a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/monthlybalance/index"><i class="icon-chart-bar"></i> Przeglądaj Bilans </a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="#"><i class="icon-cog"></i> Ustawienia </a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/logout"><i class="icon-logout"></i> Wyloguj się </a>
+					</li>
+				
+				</ul>
+			
+			</div>
+		
+		</nav>
+		
+		{% endif %}
+		
+	</header>
+	
+	<main>
+		
+		<section>
+		
+			<div class="container register mt-1">
+					<nav class="navbar fixed-top">
+						<div class="container-fluid  d-flex flex-row-reverse">
+						
+								{% for message in flash_messages %}
+									<div class="alert alert-{{ message.type }}">
+										{{ message.body }}
+									</div>
+								{% endfor %}
+								
+						</div>
+					</nav>
+					
+					<div class="row">
+
+					{% block body %}
+					{% endblock %}
+					
+					</div>
+			</div>
+			
+		</section>
+		
+	</main>
+	
+	<footer>
+		
+		<div class="info">
+			All rights reserved &copy; 2020, Personal Budget created by Kail
+		</div>
+	
+	</footer>
+	
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/jquery-3.2.1.min.js"></script>
+
+    {% block footer %}
+    {% endblock %}
+</body>
+</html>

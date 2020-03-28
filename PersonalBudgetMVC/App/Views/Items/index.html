@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block body %}
+
+					<div class="col-lg-3 register-left">
+						<div id="icon"><i class="icon-money-1"></i></div>
+						<div class="welcome col-md-12">Witaj</div>
+						<div class="welcome col-md-12 mb-1">{{ current_user.username }}</div>
+                        <div class="col-md-12 mb-4">W menu głównym możesz wybrać opcje dodania przychodu i wydatku oraz przeglądać swój bilans finansowy z różnego okresu.</div>
+                    </div>
+					
+                    <div class="col-lg-9 register-right">
+                        
+						
+                        <div class="tab-content" id="myTabContent">
+						
+                         
+                                <h3 class="register-heading">Gratulacje!</h3>
+								
+                                <div class="row description-form">
+								
+                                 <p class="description">Pierwszy krok do planowania swojego domowego budżetu wykonany. Co chcesz teraz zrobić?</p>
+								 
+								 <img src="/img/mysliciel.png" alt="money" class="img-fluid" />
+									
+                                </div>
+							
+                        </div>
+						
+                    </div>
+
+{% endblock %}

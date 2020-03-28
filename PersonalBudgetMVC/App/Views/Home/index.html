@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block body %}
+	
+					<div class="col-lg-3 register-left">
+						<div id="icon"><i class="icon-money-1"></i></div>
+                        <h3>Witaj w aplikacji Personal Budget</h3>
+                        <p>Aplikacja pomoże Ci w prowadzeniu swojego własnego budżetu, wystarczy się tylko zarejestrować i zalogować.</p>
+                    </div>
+					
+                    <div class="col-lg-9 register-right">
+
+                       <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item">
+                                <a href="/login" class="nav-link active">Logowanie</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/signup/new" class="nav-link active">Rejestracja</a>
+                            </li>
+                        </ul>
+						
+						<div class="tab-content" id="myTabContent">
+					
+					 
+							<h3 class="register-heading">Czy wiesz, że ...</h3>
+							
+							<div class="row description-form">
+							
+							 <p class="description">Trzy kroki dzielą Cię od zapanowania nad swoim budżetem ?</p>
+							 <p class="description2">Krok 1: Załóż konto i dołącz do grona użytkowników tej aplikacji.</p>
+							 <p class="description2">Krok 2: Zaloguj się, dodawaj swoje przychody i wydatki.</p>
+							 <p class="description2">Krok 3: Obserwuj swój bilans, dowiedz się czy oszczędzasz, czy wpadasz w długi.</p>
+								
+							</div>
+						
+						</div>
+						
+                    </div>
+
+{% endblock %}

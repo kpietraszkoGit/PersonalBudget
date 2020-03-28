@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block footer %}
+
+<!--piechart-->
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript">
+$(function () {
+
+	  	{% set name = [] %}
+		var name = [
+		{% for expense in rowExpenses %}
+            {{expense.nameCategory|json_encode|raw}},		
+		{% endfor %}
+		];
+		
+		{% set data = [] %}
+		var data = [
+        {% for expense in rowExpenses %}
+            {{expense.SUM}},
+        {% endfor %}
+		];
+		
+    var final = [];
+    
+    for(var i=0; i < name.length; i++) {
+    	final.push({
+            name: name[i],
+            y: data[i]			 
+        }); 	   
+    }    
+    
+    
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text:  'WYDATKI Z WYBRANEGO OKRESU'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#495057'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: "Brands",
+            colorByPoint: true,
+            data: final
+        }]
+    });
+});
+
+window.onload = function today()
+{
+		let d = new Date();
+		let currDate = d.getDate();
+		let currMonth = d.getMonth()+1;
+		let currYear = d.getFullYear();
+				
+		document.getElementById("days").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+		document.getElementById("days2").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+}
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+                    <div class="col-lg-3 register-left">
+
+						<div id="icon"><i class="icon-money-1"></i></div>
+
+                        <p>"Większość ludzi nie uzmysławia sobie tego, że w życiu nie chodzi o to, ile pieniędzy sie robi, tylko o to, ile się zachowa. <br> – Robert T. Kiyosaki  –</p>
+						
+                    </div>
+					
+                    <div class="col-lg-9 register-right">
+                        
+						
+                        <div class="tab-content" id="myTabContent">
+						
+							<div class="row registerBalance-form justify-content-md-center">
+							
+								<div class="col-md-6 mb-4">
+								<h3 class="register-headingBalance">Bilans z okresu:
+								
+								<div id="name2" class="dateRange col-md-12 my-1">od {{session.fromDay}} do {{session.toDay}}</div>
+								
+								</h3>
+								</div>
+								
+								<div id="button" class="col-md-6 mb-4">
+			
+									<div class="dropdown">
+									  <button class="btn btn-warning dropbtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Wybierz okres
+									  </button>
+									  <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="/monthlybalance/index">Bieżący miesiąc</a>
+										<a class="dropdown-item" href="/lastmonthlybalance/index">Poprzedni miesiąc</a>
+										<a class="dropdown-item" href="/yearbalance/index">Bieżący rok</a>
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Niestandardowy</a>
+									  </div>
+									</div>
+								
+								</div>
+							
+								<div class="col-md-5 balance">
+									<p class="titleBox">Przychody</p>
+													
+									<table cellpadding="10" cellspacing="0">
+										<thead>
+											<tr><th>Kategorie</th><th>Przychód</th></tr>
+										</thead>
+										<tbody>
+										
+										{% for income in rowIncomes %}
+										<tr>
+										<td>{{ income.nameCategory}}</td>
+										<td>{{"%.2f"|format(income.SUM)}}</td>
+										</tr>
+										{% endfor %}
+											
+										</tbody>
+										{% for income in sumrowIncomes %}
+
+										<tr><th>SUMA:</th><th>{{("%.2f"|format(income.SUM))}}</th></tr>
+
+										{% endfor %}
+									</table>
+									
+									{% if rowIncomes is empty %}
+									<div class="b_line" style="color: #495057; text-align: center; margin-bottom: 10px;">Brak przychodów w wybranym okresie</div>
+									{% endif %}	
+									
+								</div>
+								
+								<div class="col-md-5 ml-md-1 balance">
+									<p class="titleBox">Wydatki</p>
+									
+									<table cellpadding="10" cellspacing="0">
+										<thead>
+											<tr><th>Kategorie</th><th>Wydatek</th></tr>
+										</thead>
+										<tbody>
+										
+										{% for expense in rowExpenses %}
+										<tr>
+										<td>{{ expense.nameCategory}}</td>
+										<td>{{"%.2f"|format(expense.SUM)}}</td>
+										</tr>
+										{% endfor %}						
+										
+										</tbody>
+										
+										{% for expense in sumrowExpenses %}
+
+										<tr><th>SUMA:</th><th>{{"%.2f"|format(expense.SUM)}}</th></tr>
+
+										{% endfor %}
+										
+									</table>
+									
+									{% if rowExpenses is empty %}
+									<div class="b_line" style="color: #495057; text-align: center; margin-bottom: 10px;">Brak wydatków w wybranym okresie</div>
+									{% endif %}
+									
+								</div>
+								
+								<div class="col-md-10 resumeBalance">
+									<p class="titleBox">Bilans</p>
+									<table cellpadding="10" cellspacing="0">
+									   <thead>
+											<tr><th>Bilans</th><th>
+											
+											{% for income in sumrowIncomes %}
+											{% for expense in sumrowExpenses %}	
+											{{
+											("%.2f"|format(income.SUM)) - ("%.2f"|format(expense.SUM))
+											}}
+											{% endfor %}										
+											{% endfor %}	
+											
+											</th></tr>
+										</thead>
+									</table>
+									
+									{% for income in sumrowIncomes %}
+									{% for expense in sumrowExpenses %}	
+									{% if (("%.2f"|format(income.SUM)) - ("%.2f"|format(expense.SUM))) >= 0 %}
+									<div id="sum2">Gratulacje. Świetnie zarządzasz finansami!</div>
+									{% else %}
+									<div id="sum">Uważaj, wpadasz w długi!</div>
+									{% endif %}	
+									{% endfor %}										
+									{% endfor %}		
+									
+								</div>
+								
+								<div class="col-md-10 resumeBalance">
+									<p class="titleBox">Wykres</p>
+									<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+								</div>
+								
+								<!-- Modal -->
+								<form method="post" action="/daterange/index">							
+									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="icons"><h5 class="modal-title" id="exampleModalLabel"><i class='icon-calendar'></i>Wybierz zakres dat: </h5>
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group col-md-9 mx-auto">
+														<div class="to">
+															<p> od </p>
+														</div>
+														<input type="date" class="form-control" id="days" name="day1" value="1990-12-12" min="1900-01-01" max="2500-01-01" required />
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="to">
+															<p> do </p>
+														</div>
+														<input type="date" class="form-control" id="days2" name="day2" value="1990-12-12" min="1900-01-01" max="2500-01-01" required />
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">OK</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								
+							</div>
+							
+                        </div>
+						
+                    </div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	
+{% endblock %}

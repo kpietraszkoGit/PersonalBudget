@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block body %}
+				
+                    <div class="col-lg-3 register-left">
+						<div id="icon"><i class="icon-money-1"></i></div>
+                        <h3>Witaj w aplikacji Personal Budget</h3>
+                        <p>Aplikacja pomoże Ci w prowadzeniu swojego własnego budżetu, wystarczy się tylko zarejestrować i zalogować.</p>
+                    </div>
+							
+                    <div class="col-lg-9 register-right">	
+						<ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item">
+                                <a href="/login" class="nav-link">Logowanie</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/signup/new" class="nav-link active">Rejestracja</a>
+                            </li>
+                        </ul>
+				
+						<div class="tab-content" id="myTabContent">
+					
+					 
+							<h3 class="register-heading">Rejestracja powiodła się!</h3>
+							
+							<div class="row description-form">
+							
+							 <p class="description">Dziękujemy za rejestrację w serwisie! Możesz już zalogować się na swoje konto!</p>
+							 
+							 <img src="/img/kobieta2.png" alt="money" class="img-fluid" />
+								
+							</div>
+						
+						</div>
+						
+                    </div>
+					
+{% endblock %}
