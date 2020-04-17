@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Flash;
 
 /**
  * Signup controller
@@ -39,11 +40,13 @@ class Signup extends \Core\Controller
 		$default3 = new User($_POST);
 
         if ($default3->addDefaultTablePayment()) {
-
+			
+			Flash::addMessage('Rejestracja powiodła się');
             $this->redirect('/signup/success');
 
         } else {
 
+			Flash::addMessage('Rejestracja nie powiodła się, spróbuj jeszcze raz', Flash::WARNING);
             View::renderTemplate('Signup/new.html', [
                 'user' => $user
             ]);

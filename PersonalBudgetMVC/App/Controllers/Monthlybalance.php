@@ -19,8 +19,6 @@ class Monthlybalance extends Authenticated
      */
     public function indexAction()
     {
-		unset($_SESSION['ok']);
-		unset($_SESSION['ok2']);
 		$monthlybalance = new User($_POST);
 		$args=[];
 

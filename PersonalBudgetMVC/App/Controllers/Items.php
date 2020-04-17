@@ -19,8 +19,6 @@ class Items extends Authenticated
      */
     public function indexAction()
     {
-		unset($_SESSION['ok']);
-		unset($_SESSION['ok2']);
         View::renderTemplate('Items/index.html');
     }
 

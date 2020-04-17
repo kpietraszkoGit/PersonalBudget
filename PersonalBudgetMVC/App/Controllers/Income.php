@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Flash;
 
 /**
  * Items controller (example)
@@ -19,9 +20,15 @@ class Income extends Authenticated
      * @return void
      */
     public function indexAction()
-    {
-		unset($_SESSION['ok2']);
-        View::renderTemplate('Income/index.html');
+    {	
+		$settingsIncomes = new User($_POST);
+		$args=[];
+		
+		$args['rowCategory'] = $settingsIncomes->selectCategoryIncome();
+
+        View::renderTemplate('Income/index.html', $args);
+		
+     //   View::renderTemplate('Income/index.html');
     }
 	
 	public function createAction()
@@ -30,7 +37,7 @@ class Income extends Authenticated
 
         if ($income->saveIncome()) {
 			
-			$_SESSION['ok'] = 'Przychód został dodany!';
+			Flash::addMessage('Przychód został dodany');
             $this->redirect('/income/index');
 			
         } else {

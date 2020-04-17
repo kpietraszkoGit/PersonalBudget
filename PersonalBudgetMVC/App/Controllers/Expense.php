@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Flash;
 
 /**
  * Items controller (example)
@@ -18,10 +19,18 @@ class Expense extends Authenticated
      *
      * @return void
      */
-    public function indexAction()
-    {
-		unset($_SESSION['ok']);
-        View::renderTemplate('Expense/index.html');
+	
+	public function indexAction()
+    {	
+		$settingsExpenses = new User($_POST);
+		$settingsPay = new User($_POST);
+		$args=[];
+		
+		$args['rowCategoryExpenses'] = $settingsExpenses->selectCategoryExpense();
+		$args['rowPay'] = $settingsPay->selectPay();
+
+        View::renderTemplate('Expense/index.html', $args);
+		
     }
 	
 	public function createAction()
@@ -30,7 +39,7 @@ class Expense extends Authenticated
 
         if ($income->saveExpense()) {
 			
-			$_SESSION['ok2'] = 'Wydatek został dodany!';
+			Flash::addMessage('Wydatek został dodany');
             $this->redirect('/expense/index');
 			
         } else {
@@ -48,7 +57,18 @@ class Expense extends Authenticated
      */
     public function newAction()
     {
-        echo "new action";
+		$args=[];
+		$limit = new User($_POST);
+		$allExpenses = new User($_POST);
+		$allamount = new User($_POST);
+		//$dateExpense = new User($_POST);
+		$args['limitExpenses'] = $limit->selectLimitExpense();
+		$args['sumrowAllExpenses'] =$allExpenses->sumExpensesAll();
+		$args['amountExpense']=$allamount->amountExpenseWrite();
+		//$args['dateExpenseLimit']=$dateExpense->limitDate();
+		
+		View::renderTemplate('Expense/limit.html', $args);
+
     }
 
     /**

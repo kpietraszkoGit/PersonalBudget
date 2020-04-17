@@ -21,19 +21,20 @@ class Config
      * @var string
      */
     const DB_NAME = 'aplikacjabudzetowamvc';
+	//const DB_NAME = 'kailp_aplikacjabudzetowamvc';
 
     /**
      * Database user
      * @var string
      */
     const DB_USER = 'usermvc';
-
+	//const DB_USER = 'kailp_budzetmvc';
     /**
      * Database password
      * @var string
      */
     const DB_PASSWORD = 'waltornia';
-
+	//const DB_PASSWORD = 'Waltornia123';
     /**
      * Show or hide error messages on screen
      * @var boolean

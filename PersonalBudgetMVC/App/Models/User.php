@@ -103,7 +103,9 @@ class User extends \Core\Model
 		
 		$db = static::getDB();
 		
-		$sql = "INSERT INTO expenses_category_assigned_to_users (user_id, name) SELECT '$last_id', name FROM expenses_category_default";
+		//$sql = "INSERT INTO expenses_category_assigned_to_users (user_id, name, date_of_reduction) SELECT '$last_id', name FROM expenses_category_default";
+		
+		$sql = "INSERT INTO expenses_category_assigned_to_users (user_id, date_of_reduction, name) SELECT '$last_id', CURDATE(), name FROM expenses_category_default";
 
 		$stmt = $db->prepare($sql);
 
@@ -170,6 +172,81 @@ class User extends \Core\Model
 		 }
     }
 	
+	
+    public function validateCategory()
+    {
+
+	   if ($this->categoryAddIncomes == '') {
+		   $this->errors[] = 'Kategoria jest wymagana';
+	   }
+
+        if (static::categoryIncomeExists($this->categoryAddIncomes, $this->id ?? null)) {
+            $this->errors[] = 'Kategoria już istnieje';
+        }
+    }
+	
+	
+	public function validateCategoryExpenses()
+    {
+
+	   if ($this->categoryAddExpenses == '') {
+		   $this->errors[] = 'Kategoria jest wymagana';
+	   }
+
+        if (static::categoryExpenseExists($this->categoryAddExpenses, $this->id ?? null)) {
+            $this->errors[] = 'Kategoria już istnieje';
+        }
+    }
+	
+	
+	public function validatePay()
+    {
+
+	   if ($this->addPay == '') {
+		   $this->errors[] = 'Sposób płatności jest wymagany';
+	   }
+
+        if (static::addPayExists($this->addPay, $this->id ?? null)) {
+            $this->errors[] = 'Sposób płatnośc już istnieje';
+        }
+    }
+	
+	public function validateCategoryEditIncomes()
+    {
+
+	   if ($this->categoryEditIncomes == '') {
+		   $this->errors[] = 'Kategoria jest wymagana';
+	   }
+
+        if (static::categoryEditIncomesExists($this->categoryEditIncomes, $this->id ?? null)) {
+            $this->errors[] = 'Kategoria już istnieje';
+        }
+    }
+	
+	public function validateCategoryEditExpenses()
+    {
+
+	   if ($this->categoryEditExpenses == '') {
+		   $this->errors[] = 'Kategoria jest wymagana';
+	   }
+
+        if (static::categoryEditExpensesExists($this->categoryEditExpenses, $this->id ?? null)) {
+            $this->errors[] = 'Kategoria już istnieje';
+        }
+    }
+	
+	public function validateUpdatePay()
+    {
+
+	   if ($this->updatePay == '') {
+		   $this->errors[] = 'Kategoria jest wymagana';
+	   }
+
+        if (static::updatePayExists($this->updatePay, $this->id ?? null)) {
+            $this->errors[] = 'Kategoria już istnieje';
+        }
+    }
+	
     /**
      * See if a user record already exists with the specified email
      *
@@ -181,6 +258,87 @@ class User extends \Core\Model
     public static function emailExists($email, $ignore_id = null)
     {
         $user = static::findByEmail($email);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+	
+	
+	public static function categoryIncomeExists($categoryAddIncomes, $ignore_id = null)
+    {
+        $user = static::findByCategoryIncome($categoryAddIncomes);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+	
+	
+	public static function categoryExpenseExists($categoryAddExpenses, $ignore_id = null)
+    {
+        $user = static::findByCategoryExpense($categoryAddExpenses);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+	public static function addPayExists($addPay, $ignore_id = null)
+    {
+        $user = static::findByAddPay($addPay);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+	
+	public static function categoryEditIncomesExists($categoryEditIncomes, $ignore_id = null)
+    {
+        $user = static::findByCategoryEditIncome($categoryEditIncomes);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+	
+	public static function categoryEditExpensesExists($categoryEditExpenses, $ignore_id = null)
+    {
+        $user = static::findByCategoryEditExpenses($categoryEditExpenses);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+	
+	public static function updatePayExists($updatePay, $ignore_id = null)
+    {
+        $user = static::findByUpdatePay($updatePay);
 
         if ($user) {
             if ($user->id != $ignore_id) {
@@ -212,7 +370,100 @@ class User extends \Core\Model
 
         return $stmt->fetch();
     }
+	
+	
+	public static function findByCategoryIncome($categoryAddIncomes)
+    {
+        $sql = 'SELECT * FROM incomes_category_assigned_to_users WHERE name = :categoryAddIncomes';
 
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoryAddIncomes', $categoryAddIncomes, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+	
+	
+	public static function findByCategoryExpense($categoryAddExpenses)
+    {
+        $sql = 'SELECT * FROM expenses_category_assigned_to_users WHERE name = :categoryAddExpenses';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoryAddExpenses', $categoryAddExpenses, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+
+	public static function findByAddPay($addPay)
+    {
+        $sql = 'SELECT * FROM payment_methods_assigned_to_users WHERE name = :addPay';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':addPay', $addPay, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+	
+	public static function findByCategoryEditIncome($categoryEditIncomes)
+    {
+        $sql = 'SELECT * FROM incomes_category_assigned_to_users WHERE name = :categoryEditIncomes';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoryEditIncomes', $categoryEditIncomes, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+	
+	public static function findByCategoryEditExpenses($categoryEditExpenses)
+    {
+        $sql = 'SELECT * FROM expenses_category_assigned_to_users WHERE name = :categoryEditExpenses';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoryEditExpenses', $categoryEditExpenses, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+	
+	public static function findByUpdatePay($updatePay)
+    {
+        $sql = 'SELECT * FROM payment_methods_assigned_to_users WHERE name = :updatePay';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':updatePay', $updatePay, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+	
     /**
      * Authenticate a user by email and password.
      *
@@ -402,7 +653,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE()) AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory  ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE()) AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory  ORDER BY SUM DESC";
 			
 			
 			$db = static::getDB();
@@ -424,7 +675,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE()) AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE()) AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -444,7 +695,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE()) AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE()) AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -464,7 +715,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE()) AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE()) AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -486,7 +737,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE())-1 AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY  nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE())-1 AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY  nameCategory ORDER BY SUM DESC";
 					
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -506,7 +757,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE())-1 AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE())-1 AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -526,7 +777,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE())-1 AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM incomes WHERE MONTH(date_of_income) = MONTH(CURDATE())-1 AND YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -546,7 +797,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE())-1 AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM expenses WHERE MONTH(date_of_expense) = MONTH(CURDATE())-1 AND YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -567,7 +818,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY  nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY  nameCategory ORDER BY SUM DESC";
 					
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -587,7 +838,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -607,7 +858,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM incomes WHERE YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM incomes WHERE YEAR(date_of_income) = YEAR(CURDATE()) AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -627,7 +878,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM expenses WHERE YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM expenses WHERE YEAR(date_of_expense) = YEAR(CURDATE()) AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -667,7 +918,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE (date_of_income >= '$beginDay' AND date_of_income <= '$endDay') AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, income_category_assigned_to_user_id, (SELECT name FROM  incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.id=incomes. income_category_assigned_to_user_id) AS nameCategory FROM incomes WHERE (date_of_income >= '$beginDay' AND date_of_income <= '$endDay') AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
 					
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -691,7 +942,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE (date_of_expense >= '$beginDay' AND date_of_expense <= '$endDay') AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
+			$sql = "SELECT user_id, SUM(amount) AS SUM, expense_category_assigned_to_user_id, (SELECT name FROM  expenses_category_assigned_to_users WHERE expenses_category_assigned_to_users.id=expenses. expense_category_assigned_to_user_id) AS nameCategory FROM expenses WHERE (date_of_expense >= '$beginDay' AND date_of_expense <= '$endDay') AND user_id='$user_id' GROUP BY nameCategory ORDER BY SUM DESC";
 					
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -714,7 +965,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM incomes WHERE (date_of_income >= '$beginDay' AND date_of_income <= '$endDay') AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM incomes WHERE (date_of_income >= '$beginDay' AND date_of_income <= '$endDay') AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -737,7 +988,7 @@ class User extends \Core\Model
 
 		if (empty($this->errors)) { 
 		
-			$sql = "SELECT user_id, FORMAT(SUM(amount),2) AS SUM FROM expenses WHERE (date_of_expense >= '$beginDay' AND date_of_expense <= '$endDay') AND user_id='$user_id'";
+			$sql = "SELECT user_id, SUM(amount) AS SUM FROM expenses WHERE (date_of_expense >= '$beginDay' AND date_of_expense <= '$endDay') AND user_id='$user_id'";
 			
 			$db = static::getDB();
 			$stmt = $db->prepare($sql);
@@ -750,5 +1001,580 @@ class User extends \Core\Model
 		
 		 return false;
 	}
+	
+	public function addCategoryIncome()
+	{		
+		$this->validateCategory();
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "INSERT INTO incomes_category_assigned_to_users (id, user_id, name)
+					VALUES (NULL, '$user_id', :categoryAddIncomes)";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':categoryAddIncomes', $this->categoryAddIncomes, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function addCategoryExpense()
+	{		
+		$this->validateCategoryExpenses();
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "INSERT INTO expenses_category_assigned_to_users (id, user_id, name)
+					VALUES (NULL, '$user_id', :categoryAddExpenses)";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':categoryAddExpenses', $this->categoryAddExpenses, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function addPay()
+	{		
+		$this->validatePay();
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "INSERT INTO payment_methods_assigned_to_users (id, user_id, name)
+					VALUES (NULL, '$user_id', :addPay)";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':addPay', $this->addPay, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+
+	public function selectCategoryIncome()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT user_id, name FROM  incomes_category_assigned_to_users WHERE user_id='$user_id'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$rowCategory = $stmt->fetchAll();
+			
+			return $rowCategory;
+		}
+
+    return false;		
+	}
+	
+	
+	public function selectCategoryIncomeRemove()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT user_id, name FROM  incomes_category_assigned_to_users WHERE user_id='$user_id' AND name!='Inne'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$rowCategory = $stmt->fetchAll();
+			
+			return $rowCategory;
+		}
+
+    return false;		
+	}
+	
+	
+	public function selectCategoryExpense()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT user_id, name FROM  expenses_category_assigned_to_users WHERE user_id='$user_id'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$rowCategoryExpenses = $stmt->fetchAll();
+			
+			return $rowCategoryExpenses;
+		}
+
+    return false;		
+	}
+	
+	
+	public function selectCategoryExpenseRemove()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT user_id, name FROM  expenses_category_assigned_to_users WHERE user_id='$user_id' AND name!='Inne'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$rowCategoryExpenses = $stmt->fetchAll();
+			
+			return $rowCategoryExpenses;
+		}
+
+    return false;		
+	}
+	
+
+	public function selectPay()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT user_id, name FROM  payment_methods_assigned_to_users WHERE user_id='$user_id'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$rowPay = $stmt->fetchAll();
+			
+			return $rowPay;
+		}
+
+    return false;		
+	}
+	
+	
+	public function selectPayRemove()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT user_id, name FROM  payment_methods_assigned_to_users WHERE user_id='$user_id' AND name!='Inne'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$rowPay = $stmt->fetchAll();
+			
+			return $rowPay;
+		}
+
+    return false;		
+	}
+
+	public function removeCategoryIncome()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM incomes_category_assigned_to_users WHERE user_id='$user_id' AND name=:categoryIncomes";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':categoryIncomes', $this->categoryIncomes, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeIdCategoryIncome()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "UPDATE incomes SET income_category_assigned_to_user_id =(SELECT id FROM incomes_category_assigned_to_users WHERE user_id='$user_id' AND name='Inne') WHERE user_id='$user_id' AND income_category_assigned_to_user_id =(SELECT id FROM incomes_category_assigned_to_users WHERE user_id='$user_id' AND name=:categoryIncomes)";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':categoryIncomes', $this->categoryIncomes, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeCategoryExpense()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM expenses_category_assigned_to_users WHERE user_id='$user_id' AND name=:categoryExpenses";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':categoryExpenses', $this->categoryExpenses, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeIdCategoryExpense()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			//$sql = "DELETE FROM expenses WHERE user_id='$user_id' AND expense_category_assigned_to_user_id =(SELECT id FROM expenses_category_assigned_to_users WHERE user_id='$user_id' AND name=:categoryExpenses)";
+			
+			$sql = "UPDATE expenses SET expense_category_assigned_to_user_id =(SELECT id FROM expenses_category_assigned_to_users WHERE user_id='$user_id' AND name='Inne') WHERE user_id='$user_id' AND expense_category_assigned_to_user_id =(SELECT id FROM expenses_category_assigned_to_users WHERE user_id='$user_id' AND name=:categoryExpenses)";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':categoryExpenses', $this->categoryExpenses, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	public function removePay()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM payment_methods_assigned_to_users WHERE user_id='$user_id' AND name=:removePay";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':removePay', $this->removePay, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeIdPay()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			//$sql = "DELETE FROM expenses WHERE user_id='$user_id' AND payment_method_assigned_to_user_id =(SELECT id FROM payment_methods_assigned_to_users WHERE user_id='$user_id' AND name=:removePay)";
+
+			$sql = "UPDATE expenses SET payment_method_assigned_to_user_id =(SELECT id FROM payment_methods_assigned_to_users WHERE user_id='$user_id' AND name='Inne') WHERE user_id='$user_id' AND payment_method_assigned_to_user_id  =(SELECT id FROM payment_methods_assigned_to_users WHERE user_id='$user_id' AND name=:removePay)";
+			
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':removePay', $this->removePay, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeAllExpenses()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM expenses WHERE user_id='$user_id' ";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeAllIncomes()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM incomes WHERE user_id='$user_id' ";
+			
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeUserFromApp()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM users WHERE id='$user_id' ";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeAllIncomesCategory()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM incomes_category_assigned_to_users WHERE user_id='$user_id'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeAllExpensesCategory()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM expenses_category_assigned_to_users WHERE user_id='$user_id'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+	
+	public function removeAllPaymentCategory()
+	{		
+		$user_id = $_SESSION['user_id'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "DELETE FROM payment_methods_assigned_to_users WHERE user_id='$user_id'";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+
+			return $stmt->execute();
+		}
+
+    return false;		
+	}
+	
+
+	public function updateCategoryIncome()
+    {
+		$this->validateCategoryEditIncomes();
+		$user_id = $_SESSION['user_id'];
+        
+		if (empty($this->errors)) {
+
+            $sql = "UPDATE incomes_category_assigned_to_users SET name = :categoryEditIncomes WHERE name = :categoryIncomes AND user_id='$user_id'";
+
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':categoryIncomes', $this->categoryIncomes, PDO::PARAM_STR);
+            $stmt->bindValue(':categoryEditIncomes', $this->categoryEditIncomes, PDO::PARAM_STR);
+			
+            return $stmt->execute();
+        }
+
+        return false;
+    }
+	
+	
+	public function updateCategoryExpense()
+    {
+		$this->validateCategoryEditExpenses();
+		$user_id = $_SESSION['user_id'];
+        
+		if (empty($this->errors)) {
+
+            $sql = "UPDATE expenses_category_assigned_to_users SET name = :categoryEditExpenses WHERE name = :categoryExpenses AND user_id='$user_id'";
+
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':categoryExpenses', $this->categoryExpenses, PDO::PARAM_STR);
+            $stmt->bindValue(':categoryEditExpenses', $this->categoryEditExpenses, PDO::PARAM_STR);
+			
+            return $stmt->execute();
+        }
+
+        return false;
+    }
+	
+	public function updatePay()
+    {
+		$this->validateUpdatePay();
+		$user_id = $_SESSION['user_id'];
+        
+		if (empty($this->errors)) {
+
+            $sql = "UPDATE payment_methods_assigned_to_users SET name = :updatePay WHERE name = :editPay AND user_id='$user_id'";
+
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':editPay', $this->editPay, PDO::PARAM_STR);
+            $stmt->bindValue(':updatePay', $this->updatePay, PDO::PARAM_STR);
+			
+            return $stmt->execute();
+        }
+
+        return false;
+    }
+	
+	/////////////////////////////////////////////////////////////////////////////////////wysłanie do bazy danych limitu dla wydatku
+	public function limitCategoryExpense()
+    {
+		//$this->validateCategoryEditExpenses();
+		$user_id = $_SESSION['user_id'];
+        
+		if (empty($this->errors)) {
+
+        $sql = "UPDATE expenses_category_assigned_to_users SET reduction = :amountLimit, date_of_reduction = CURDATE() WHERE name = :categoryExpenses AND user_id='$user_id'";
+
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':categoryExpenses', $this->categoryExpenses, PDO::PARAM_STR);
+            $stmt->bindValue(':amountLimit', $this->amountLimit, PDO::PARAM_STR);
+			
+            return $stmt->execute();
+        }
+
+        return false;
+    }
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////pobieranie limitu z bazy danych 
+	public function selectLimitExpense()
+    {
+		$user_id = $_SESSION['user_id'];
+		$categoryName = $_POST['nameSelect'];
+		$dateExpenseLimit = $_POST['nameDate'];
+		
+		if (empty($this->errors)) {  
+
+			$sql = "SELECT reduction FROM expenses_category_assigned_to_users WHERE user_id='$user_id' AND name='$categoryName' AND MONTH(date_of_reduction) = MONTH('$dateExpenseLimit') AND YEAR(date_of_reduction) = YEAR('$dateExpenseLimit')";
+			
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			
+			$stmt->execute();
+			
+			$limitExpenses = $stmt->fetchAll();
+
+			return $limitExpenses;
+		}
+
+    return false;		
+	}
+	
+	
+	public function sumExpensesAll()
+	{ 
+	    $user_id = $_SESSION['user_id'];
+		$categoryName = $_POST['nameSelect'];
+
+		if (empty($this->errors)) { 
+			
+			$sql = "SELECT SUM(amount) AS SUM FROM expenses WHERE user_id='$user_id' AND MONTH(date_of_expense) = MONTH(CURDATE()) AND YEAR(date_of_expense) = YEAR(CURDATE()) AND expense_category_assigned_to_user_id=(SELECT id FROM expenses_category_assigned_to_users WHERE user_id='$user_id' AND name='$categoryName') ";
+			
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			
+			$sumrowAllExpenses = $stmt->fetchAll();
+			
+			return $sumrowAllExpenses;
+		}
+		
+		 return false;
+	}
+	
+	public function amountExpenseWrite()
+	{ 
+		$amountExpense= $_POST['nameAmount'];
+			
+		return $amountExpense;
+	}
+	
+	
+	/*public function limitDate()
+	{ 
+		$dateExpenseLimit = $_POST['nameDate'];
+			
+		return $dateExpenseLimit;
+	}*/
 }
 

@@ -194,7 +194,7 @@ window.onload = function today()
 											{% for income in sumrowIncomes %}
 											{% for expense in sumrowExpenses %}	
 											{{
-											("%.2f"|format(income.SUM)) - ("%.2f"|format(expense.SUM))
+											(("%.2f"|format(income.SUM)) - ("%.2f"|format(expense.SUM))) |number_format(2, '.', '')
 											}}
 											{% endfor %}										
 											{% endfor %}	
@@ -217,7 +217,7 @@ window.onload = function today()
 								
 								<div class="col-md-10 resumeBalance">
 									<p class="titleBox">Wykres</p>
-									<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+									<div id="container" style="min-width: 240px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 								</div>
 								
 								<!-- Modal -->

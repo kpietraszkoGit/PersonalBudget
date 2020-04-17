@@ -16,5 +16,11 @@
 .icon-calendar:before { content: '\e80e'; } /* '' */
 .icon-wallet:before { content: '\e80f'; } /* '' */
 .icon-down-dir:before { content: '\e810'; } /* '' */
+.icon-plus:before { content: '\e811'; } /* '' */
+.icon-trash-empty:before { content: '\e812'; } /* '' */
+.icon-user-1:before { content: '\e813'; } /* '' */
+.icon-edit:before { content: '\e814'; } /* '' */
+.icon-lock-open-filled:before { content: '\e815'; } /* '' */
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */
 .icon-dollar:before { content: '\f155'; } /* '' */
+.icon-user-times:before { content: '\f235'; } /* '' */

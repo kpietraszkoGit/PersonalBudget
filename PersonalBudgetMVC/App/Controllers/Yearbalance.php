@@ -20,8 +20,6 @@ class Yearbalance extends Authenticated
      */
     public function indexAction()
     {
-		unset($_SESSION['ok']);
-		unset($_SESSION['ok2']);
 		$yearbalance = new User($_POST);
 		$args=[];
 		

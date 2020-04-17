@@ -599,4 +599,58 @@ table
     height:100%;
 }
 
- 
+/*settings*/
+.categorySettings
+{
+	border-radius: 12px;
+	margin: 10px 0 10px 0;
+	background-color: #ffffff;
+	color: #e0972a;
+	border: 2px solid #e0972a;
+	-webkit-box-shadow: 0px 18px 11px -13px rgba(0,0,0,0.53);
+	-moz-box-shadow: 0px 18px 11px -13px rgba(0,0,0,0.53);
+	box-shadow: 0px 18px 11px -13px rgba(0,0,0,0.53);
+	font-size: 16px;
+}
+
+.categorySettings:hover, .categorySettings:focus
+{
+	border: 2px solid #e0972a;
+	background-color: #f9c831;
+	color: black;
+}
+
+#accordion
+{
+	margin-top: 10px;
+}
+
+.categoryIncome
+{
+	font-size: 14px;
+	border-radius: 12px;
+	border: 1px solid #495057;
+	-webkit-box-shadow: 0px 18px 3px -12px rgba(0,0,0,0.53);
+	-moz-box-shadow: 0px 18px 3px -12px rgba(0,0,0,0.53);
+	box-shadow: 0px 18px 3px -12px rgba(0,0,0,0.53);
+}
+
+.iconCategory
+{
+	text-align: center;
+	font-size: 18px;
+	color: #495057;
+}
+
+.edit
+{
+	font-size: 16px;
+	color: #e0972a;
+}
+
+.limit
+{
+	margin-bottom:-12px;
+	margin-top: 8px;
+}
+

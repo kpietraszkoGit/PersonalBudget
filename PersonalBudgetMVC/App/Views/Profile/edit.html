@@ -7,6 +7,46 @@
     <script src="/js/app.js"></script>
 
     <script>
+	$("#inputPassword").click(function(){
+	    if($(this).val() == "")
+	    {
+			$('#displaytext4').html("Wpisz to samo hasło, jeśli nie chcesz go zmieniać !");
+		}
+		else
+		{
+
+		}
+	});
+	
+	$.validator.addMethod('validName',
+		function(value, element, param) {
+
+			if (value != '') {
+				if (value.match(/^[A-ZĄ-Ż][a-zą-ż]+[a-zą-ż]$/gm) == null) {
+					return false;
+				}
+			}
+			return true;
+		},
+		'Imię musi być jednym słowem, zwierać pierwszą dużą literę, pozostałe małe, bez cyfr i znaków specjalnych'
+	);
+	
+	    $.validator.addMethod('validPassword',
+            function(value, element, param) {
+
+                if (value != '') {
+                    if (value.match(/.*[a-z]+.*/i) == null) {
+                        return false;
+                    }
+                    if (value.match(/.*\d+.*/) == null) {
+                        return false;
+                    }
+                }
+                return true;
+            },
+            'Hasło musi zawierać co najmniej jedną literę i jedną cyfrę'
+        );
+	
         $(document).ready(function() {
 
             var userId = '{{ user.id }}';
@@ -16,7 +56,11 @@
              */
             $('#formProfile').validate({
                 rules: {
-                    name: 'required',
+                    name: {
+                        required: true,
+						minlength: 3,
+						validName: true
+                    },
                     email: {
                         required: true,
                         email: true,
@@ -30,14 +74,25 @@
                         }
                     },
                     password: {
+						required: true,
                         minlength: 6,
                         validPassword: true
                     }
                 },
                 messages: {
+					name:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    },
                     email: {
-                        remote: 'Ten e-mail już istnieje'
-                    }
+						required: 'To pole jest wymagane',
+						email: 'Wpisz poprawny adres e-mail',
+                        remote: 'Adres e-mail jest już zajęty'
+                    },
+					password: {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 6 znaków'
+					},
                 }
             });
 
@@ -56,37 +111,67 @@
 
 {% block body %}
 
-    <h1>Profile</h1>
+	
+					<div class="col-lg-3 register-left">
 
-    {% if user.errors is not empty %}
-        <p>Errors:</p>
-        <ul>
-            {% for error in user.errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+						<div id="icon"><i class="icon-money-1"></i></div>
 
-    <form method="post" id="formProfile" action="/profile/update">
+                        <p>"Mądrze jest mieć pieniądze w głowie, ale nie w sercu." <br> – Jonathan Swift –</p>
+                    </div>
 
-        <div>
-            <label for="inputName">Name</label>
-            <input id="inputName" name="name" placeholder="Name" value="{{ user.username }}" required />
-        </div>
-        <div>
-            <label for="inputEmail">Email address</label>
-            <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" />
-        </div>
-        <div>
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" name="password" placeholder="Password"
-                   aria-describedby="helpBlock" />
-            <span id="helpBlock">Pozostaw puste pole, jeśli chcesz zachować aktualne hasło</span>
-        </div>
+                    <div class="col-lg-9 register-right">
+                        		
+                        <div class="tab-content" id="myTabContent">
+						
+							<form method="post" id="formProfile" action="/profile/update">
+							
+                                <h3 class="register-heading2">Edytuj swoje dane:</h3>
 
-        <button type="submit">Save</button>
-        <a href="/profile/show">Cancel</a>
+                                <div class="row register-form">
+									
+										<div class="col-md-10 inputs offset-md-1">
+										
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-pencil'></i>
+												</div>
+												<input id="inputName" name="name" class="form-control" placeholder="Imię *" value="{{ user.username }}" required />	
+											</div>     
+											
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-email'></i>
+												</div>
+												<input id="inputEmail" name="email" class="form-control" placeholder="Email *" value="{{ user.email }}" required type="email" />
+											</div>
+											
+											<div class="form-group col-md-9 mx-auto">
+												<div class="icons">
+													<i class='icon-lock-filled'></i>
+												</div>
+												<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password *" aria-describedby="helpBlock" value="" required  />
+											</div>
+											<div class="form-group col-md-9 mx-auto">
+												<div id="displaytext4" class="text-center text-info"></div>
+											</div>
+												
+										</div>
+										
+								
+										<div class="col-md-12 buttons">
+										
+											<input type="submit" class="btn-success btnRegister2"  value="Zapisz"/>
+											
+											<input type="reset" class="btn-danger btnRegister2"  onclick="location.href='/settings/index';"value="Anuluj"/>
+										
+										</div>
 
-    </form>
+                                </div>
+								
+							</form>
+							
+                        </div>
+						
+                    </div>
 
 {% endblock %}

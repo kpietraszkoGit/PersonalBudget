@@ -1,0 +1,936 @@
+{% extends 'base.html' %}
+
+{% block title %}Aplikacja budżetu osobistego{% endblock %}
+
+{% block footer %}
+
+
+<script>
+
+	$("#selIncomes").change(function(){
+	    if($(this).val() == "zero")
+	    {    		 
+	    }
+		else
+		{
+			$('#displaytext').html("Jeśli usuniesz kategorie, w której są dodane przychody, zostaną one przenisione do kategorii Inne !");
+		}
+	});
+	
+	$("#selExpenses").change(function(){
+	    if($(this).val() == "zero")
+	    {    		 
+	    }
+		else
+		{
+			$('#displaytext2').html("Jeśli usuniesz kategorie, w której są dodane wydatki, zostaną one przenisione do kategorii Inne !");
+		}
+	});
+
+	$("#selPay").change(function(){
+	    if($(this).val() == "zero")
+	    {    		 
+	    }
+		else
+		{
+			$('#displaytext3').html("Jeśli usuniesz sposób płatności, który jest dodany w wydatkach, zostanie tam przypisana płatność - Inne !");
+		}
+	});
+        /**
+         * Add jQuery Validation plugin method for a valid password
+         *
+         * Valid passwords contain at least one letter and one number.
+         */
+	$.validator.addMethod('validCategory',
+		function(value, element, param) {
+
+			if (value != '') {
+				if (value.match(/^[A-ZĄ-Ż][a-zą-ż]+[a-zą-ż]$/gm) == null) {
+					return false;
+				}
+			}
+			return true;
+		},
+		'Nazwa musi być jednym słowem, zwierać pierwszą dużą literę, pozostałe małe, bez cyfr i znaków specjalnych'
+	);
+
+
+ $(document).ready(function() {
+
+            /**
+             * Validate the form
+             */
+            $('#formCategoryIncomes').validate({
+                rules: {
+					categoryAddIncomes: {
+                        required: true,
+						minlength: 3,
+						validCategory: true
+                    }
+                },
+                messages: {
+					 categoryAddIncomes:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    }
+				}
+		});
+	});
+	
+ $(document).ready(function() {
+
+            /**
+             * Validate the form
+             */
+            $('#formCategoryExpenses').validate({
+                rules: {
+					categoryAddExpenses: {
+                        required: true,
+						minlength: 3,
+						validCategory: true
+                    }
+                },
+                messages: {
+					 categoryAddExpenses:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    }
+				}
+		});
+	});
+	
+ $(document).ready(function() {
+
+            /**
+             * Validate the form
+             */
+            $('#formAddPay').validate({
+                rules: {
+					addPay: {
+                        required: true,
+						minlength: 3,
+						validCategory: true
+                    }
+                },
+                messages: {
+					 addPay:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    }
+				}
+		});
+	});
+
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+            $('#formEditCategoryIncomes').validate({
+                rules: {
+					categoryIncomes: 'required',
+					categoryEditIncomes: {
+                        required: true,
+						minlength: 3,
+						validCategory: true
+                    }
+                },
+                messages: {
+					categoryIncomes: 'To pole jest wymagane',
+					categoryEditIncomes:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    }
+				}
+		});
+	});
+
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+            $('#formEditCategoryExpenses').validate({
+                rules: {
+					categoryExpenses: 'required',
+					categoryEditExpenses: {
+                        required: true,
+						minlength: 3,
+						validCategory: true
+                    }
+                },
+                messages: {
+					categoryExpenses: 'To pole jest wymagane',
+					categoryEditExpenses:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    }
+				}
+		});
+	});
+
+
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+         $('#formLimitCategoryExpenses').validate({
+                rules: {
+					amountLimit: 'required',
+					categoryExpenses: {
+                        required: true
+                    }
+                },
+                messages: {
+					amountLimit: 'To pole jest wymagane',
+					categoryExpenses:  {
+						required: 'To pole jest wymagane'
+                    }
+				}
+		});
+	});
+
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+            $('#formEditPay').validate({
+                rules: {
+					editPay: 'required',
+					updatePay: {
+                        required: true,
+						minlength: 3,
+						validCategory: true
+                    }
+                },
+                messages: {
+					editPay: 'To pole jest wymagane',
+					updatePay:  {
+						required: 'To pole jest wymagane',
+						minlength: 'Wprowadź co najmniej 3 znaki'
+                    }
+				}
+		});
+	});
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+            $('#formRemoveCategoryIncomes').validate({
+                rules: {
+					categoryIncomes: {
+                        required: true
+                    }
+                },
+                messages: {
+					categoryIncomes:  {
+						required: 'To pole jest wymagane'
+                    }
+				}
+		});
+	});
+
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+            $('#formRemoveCategoryExpense').validate({
+                rules: {
+					categoryExpenses: {
+                        required: true
+                    }
+                },
+                messages: {
+					categoryExpenses:  {
+						required: 'To pole jest wymagane'
+                    }
+				}
+		});
+	});
+	
+ $(document).ready(function() {
+            /**
+             * Validate the form
+             */
+            $('#formRemovePay').validate({
+                rules: {
+					removePay: {
+                        required: true
+                    }
+                },
+                messages: {
+					removePay:  {
+						required: 'To pole jest wymagane'
+                    }
+				}
+		});
+	});
+
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+                    <div class="col-lg-3 register-left">
+
+						<div id="icon"><i class="icon-money-1"></i></div>
+
+                        <p>"Nigdy nie polegaj na jednym źródle dochodu. Inwestuj w siebie z zamiarem stworzenia drugiego, potem trzeciego, potem czwartego." <br> – Waren Buffett –</p>
+                    </div>
+					
+                    <div class="col-lg-9 register-right">
+						
+                        <div class="tab-content" id="myTabContent">
+						
+							<div class="row registerBalance-form justify-content-md-center">
+							
+								<div class="col-md-10 mb-4">
+								<h3 class="register-headingBalance"><i class="icon-cog"></i> Ustawienia <i class="icon-cog"></i></h3>
+								</div>
+																				
+								<div class="col-md-10 resumeBalance">
+									
+									<div id="accordion" class="my-3">
+									  <div class="card">
+										<div class="card-header" id="headingOne">
+										  <h5 class="mb-0">
+											<button class="btn btn-outline-warning btn-lg btn-block categorySettings" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="icon-dollar"></i>
+											  Kategorie przychodów <i class="ic icon-down-dir"></i>
+											</button>
+										  </h5>
+										</div>
+
+										<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+										  <div class="card-body">
+										  
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#incomeAddModal"><i class="ic icon-plus"></i>Dodaj kategorię przychodu</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#incomeEditModal"><i class="ic icon-edit"></i>Edytuj kategorię przychodu</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#incomeRemoveModal"><i class="ic icon-trash-empty"></i>Usuń kategorię przychodu</button>
+											
+										  </div>
+										</div>
+									  </div>
+									  <div class="card">
+										<div class="card-header" id="headingTwo">
+										  <h5 class="mb-0">
+											<button class="btn btn-outline-warning collapsed btn-lg btn-block categorySettings" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="icon-bag"></i>
+											  Kategorie wydatków <i class="ic icon-down-dir"></i>
+											</button>
+										  </h5>
+										</div>
+										<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+										  <div class="card-body">
+											
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#expenseAddModal"><i class="ic icon-plus"></i>Dodaj kategorię wydatku</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#expenseEditModal"><i class="ic icon-edit"></i>Edytuj kategorię wydatku</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#expenseLimitModal"><i class="ic icon-plus"></i>Wprowadź limit wydatku</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#expenseRemoveModal"><i class="ic icon-trash-empty"></i>Usuń kategorię wydatku</button>
+											
+										  </div>
+										</div>
+									  </div>
+									  <div class="card">
+										<div class="card-header" id="headingThree">
+										  <h5 class="mb-0">
+											<button class="btn btn-outline-warning  collapsed btn-lg btn-block categorySettings" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class='icon-money'></i>
+											  Sposoby płatności <i class="ic icon-down-dir"></i>
+											</button>
+										  </h5>
+										</div>
+										<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+										  <div class="card-body">
+											
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#payAddModal"><i class="ic icon-plus"></i>Dodaj sposób płatności</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#payEditModal"><i class="ic icon-edit"></i>Edytuj sposób płatności</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#payRemoveModal"><i class="ic icon-trash-empty"></i>Usuń sposób płatności</button>
+											
+										  </div>
+										</div>
+									  </div>
+									  <div class="card">
+										<div class="card-header" id="headingThree">
+										  <h5 class="mb-0">
+											<button class="btn btn-outline-warning collapsed btn-lg btn-block categorySettings" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class='icon-user-1'></i>
+											  Użytkownik <i class="ic icon-down-dir"></i>
+											</button>
+										  </h5>
+										</div>
+										<div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+										  <div class="card-body">
+											
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#editprofilModal"><i class="ic icon-user-1"></i>Profil</button>	
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#removeIncomesExpensesModal"><i class="ic icon-trash-empty"></i>Usuń przychody i wydatki</button>
+											<button type="button" class="btn btn-secondary btn-lg btn-block categoryIncome" data-toggle="modal" data-target="#userRemoveModal"><i class="ic icon-user-times"></i>Usuń konto</button>
+											
+										  </div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								
+								<!-- Modal add  category incomes-->
+								<form method="post" action="/settings/create" id="formCategoryIncomes">								
+									<div class="modal fade" id="incomeAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-plus'></i>Dodawanie nowej kategorii przychodu: 
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="text" class="form-control" autofocus placeholder="Nowa kategoria *" name="categoryAddIncomes" value="" required />
+													</div>
+														
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Dodaj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+								
+								<!-- Modal edit category incomes-->
+								<form method="post" action="/settings/edit" id="formEditCategoryIncomes">								
+									<div class="modal fade" id="incomeEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-edit'></i>Edytowanie wybranej kategorii przychodu:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">1.Wybierz nazwę kategorii przychodu:</p>
+													</div>									
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>														
+														<select class="form-control category" name="categoryIncomes" required>
+															
+																<!--<option value="zero" selected disabled>Kategorie przychodu *</option>-->
+
+																{% for category in rowCategoryIncomes %}
+																
+																<option value="{{category.name}}">{{category.name}}</option>
+
+																{% endfor %}
+																<option value="Inne" selected disabled>Inne</option>
+																<option value="zero" selected disabled>Kategorie przychodu *</option>
+
+														</select>
+													</div>	
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">2.Zmień nazwę kategorii przychodu:</p>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="text" class="form-control" autofocus placeholder="Edytowana kategoria *" name="categoryEditIncomes" value="" required />	
+													</div>
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Edytuj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								
+								<!-- Modal remove category incomes-->
+								<form method="post" action="/settings/delete" id="formRemoveCategoryIncomes">		
+								
+									<div class="modal fade" id="incomeRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-trash-empty'></i>Usuwanie wybranej kategorii przychodu:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+														<div class="form-group col-md-9 mx-auto">
+															<div class="icons">
+																<i class='icon-list-bullet'></i>
+															</div>														
+															<select id="selIncomes"  class="form-control category" name="categoryIncomes" required>
+															
+																<!--<option value="zero" selected disabled>Kategorie przychodu *</option>-->
+
+																{% for category in rowCategoryIncomes %}
+																
+																<option value="{{category.name}}">{{category.name}}</option>
+
+																{% endfor %}
+																<option value="Inne" selected disabled>Inne</option>
+																<option value="zero" selected disabled>Kategorie przychodu *</option>
+
+															</select>
+														</div>
+														<div class="form-group col-md-9 mx-auto">
+															<div id="displaytext" class="text-center text-danger"></div>
+														</div>
+											
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Usuń</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+								
+								<!-- Modal add  category expenses-->
+								<form method="post" action="/settings/createExpenses" id="formCategoryExpenses">								
+									<div class="modal fade" id="expenseAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-plus'></i>Dodawanie nowej kategorii wydatku: 
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="text" class="form-control" autofocus placeholder="Nowa kategoria *" name="categoryAddExpenses" value="" required />
+													</div>
+														
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Dodaj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+								
+								<!-- Modal edit category expenses-->
+								<form method="post" action="/settings/editExpenses" id="formEditCategoryExpenses">								
+									<div class="modal fade" id="expenseEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-edit'></i>Edytowanie wybranej kategorii wydatku:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">1.Wybierz nazwę kategorii wydatku:</p>
+													</div>									
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>														
+														<select class="form-control category" name="categoryExpenses" required>
+														
+															<!--<option value="zero" selected disabled>Kategorie wydatku *</option>-->
+
+															{% for category in rowCategoryExpenses %}
+															
+															<option value="{{category.name}}">{{category.name}}</option>
+
+															{% endfor %}
+															<option value="Inne" selected disabled>Inne</option>
+															<option value="zero" selected disabled>Kategorie wydatku *</option>
+															
+														</select>
+													</div>	
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">2.Zmień nazwę kategorii wydatku:</p>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="text" class="form-control" autofocus placeholder="Edytowana kategoria *" name="categoryEditExpenses" value="" required />	
+													</div>
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Edytuj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								
+								
+								<!-- Modal edit limit expenses-->
+								<form method="post" action="/settings/limitExpenses" id="formLimitCategoryExpenses">								
+									<div class="modal fade" id="expenseLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-plus'></i>Wprowadzanie miesięcznego limitu wydatku:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">1.Wybierz nazwę kategorii wydatku:</p>
+													</div>									
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>	
+
+														<select class="form-control category" name="categoryExpenses" required>
+														
+															<option value="zero" selected disabled>Kategorie wydatku *</option>
+															{% for category in rowCategory %}
+															
+															<option value="{{category.name}}">{{category.name}}</option>
+
+															{% endfor %}
+															
+														</select>																											
+											
+													</div>	
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">2.Wpisz wartość miesięcznego limitu:</p>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="number"  class="form-control" name="amountLimit"  placeholder="Kwota limitu *" value=""  required/>
+													</div> 
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Dodaj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								
+								<!-- Modal remove category expenses-->
+								<form method="post" action="/settings/deleteExpenses" id="formRemoveCategoryExpenses">		
+								
+									<div class="modal fade" id="expenseRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-trash-empty'></i>Usuwanie wybranej kategorii wydatku:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+														<div class="form-group col-md-9 mx-auto">
+															<div class="icons">
+																<i class='icon-list-bullet'></i>
+															</div>														
+															<select id="selExpenses"  class="form-control category" name="categoryExpenses" required>
+														
+															<!--<option value="zero" selected disabled>Kategorie wydatku *</option>-->
+
+															{% for category in rowCategoryExpenses %}
+															
+															<option value="{{category.name}}">{{category.name}}</option>
+
+															{% endfor %}
+															<option value="Inne" selected disabled>Inne</option>
+															<option value="zero" selected disabled>Kategorie wydatku *</option>
+															
+															</select>
+														</div>
+														<div class="form-group col-md-9 mx-auto">
+															<div id="displaytext2" class="text-center text-danger"></div>
+														</div>
+											
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Usuń</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+								
+								<!-- Modal add  pay-->
+								<form method="post" action="/settings/createPay" id="formAddPay">								
+									<div class="modal fade" id="payAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-plus'></i>Dodawanie nowego sposobu płatności: 
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="text" class="form-control" autofocus placeholder="Nowy sposób płatności *" name="addPay" value="" required />
+													</div>
+														
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Dodaj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+								
+								<!-- Modal edit pay-->
+								<form method="post" action="/settings/editPay" id="formEditPay">								
+									<div class="modal fade" id="payEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-edit'></i>Edytowanie wybranego sposobu płatności:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">1.Wybierz nazwę sposobu płatności:</p>
+													</div>									
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>														
+														<select class="form-control category" name="editPay" required>
+														
+															<!--<option value="zero" selected disabled>Sposób płatności *</option>-->
+
+																{% for pay in rowPay %}
+																
+																<option value="{{pay.name}}">{{pay.name}}</option>
+
+																{% endfor %}
+																<option value="Inne" selected disabled>Inne</option>
+																<option value="zero" selected disabled>Sposób płatności *</option>
+
+														</select>
+													</div>	
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit">2.Zmień nazwę sposobu płatności:</p>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-pencil'></i>
+														</div>
+														<input type="text" class="form-control" autofocus placeholder="Edytowany sposób płatności *" name="updatePay" value="" required />	
+													</div>
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Edytuj</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								
+								<!-- Modal remove pay-->
+								<form method="post" action="/settings/deletePay" id="formRemovePay">		
+								
+									<div class="modal fade" id="payRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-trash-empty'></i>Usuwanie wybranego sposobu płatności:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+														<div class="form-group col-md-9 mx-auto">
+															<div class="icons">
+																<i class='icon-list-bullet'></i>
+															</div>														
+															<select id="selPay" class="form-control category" name="removePay" required>
+														
+																<!--<option value="zero" selected disabled>Sposób płatności *</option>-->
+
+																{% for pay in rowPay %}
+																
+																<option value="{{pay.name}}">{{pay.name}}</option>
+
+																{% endfor %}
+																<option value="Inne" selected disabled>Inne</option>
+																<option value="zero" selected disabled>Sposób płatności *</option>
+
+															</select>
+														</div>
+														<div class="form-group col-md-9 mx-auto">
+															<div id="displaytext3" class="text-center text-danger"></div>
+														</div>
+											
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Usuń</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+								
+								<!-- Modal edit profil -->
+								<!--<form method="post">-->				
+									<div class="modal fade" id="editprofilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-user-1'></i>Aktualne dane osobowe: 
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+												<div class="form-group col-md-9 mx-auto">
+													<p class="edit">Dane osobowe:</p>
+
+														<table cellpadding="10" cellspacing="0">
+														   <thead>
+																<tr><th>Imię:</th><th>																					
+																	{{ user.username }}
+																</th></tr>
+																<tr><th>e-mail:</th><th>																					
+																	{{ user.email }}
+																</th></tr>
+															</thead>
+														</table>
+
+													<a href="/profile/edit"><i class='icon-edit'></i>Edytuj profil</a>
+												</div>	
+													
+														
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Wyjdź</button>
+													<!--<button type="submit" class="btn ok">Dodaj</button>-->
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								<!--</form>-->
+								
+								<!-- Modal remove Incomes and Expenses-->
+								<form method="post" action="/settings/removeAll" id="formEditPay">								
+									<div class="modal fade" id="removeIncomesExpensesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-trash-empty'></i>Usuwanie wszystkich przychodów i wydatków:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit text-center">Jeśli chcesz usunąć wszystkie przychody i wydatki na swoim koncie naciśnij przycisk Usuń</p>
+													</div>									
+													
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Usuń</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								
+								<!-- Modal remove user-->
+								<form method="post" action="/settings/removeUser" id="formEditPay">								
+									<div class="modal fade" id="userRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+														<div class="iconCategory"><i class='icon-user-times'></i>Usuwanie swojego konta:
+														 </div>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													  <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												
+													<div class="form-group col-md-9 mx-auto">
+													<p class="edit text-center">Jeśli chcesz usunąć swoje konto wraz z wszystkimi dodanymi przychodami i wydatkami naciśnij przycisk Usuń</p>
+													</div>									
+													
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn ok">Usuń</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+
+							</div>
+							
+                        </div>
+						
+                    </div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	
+{% endblock %}

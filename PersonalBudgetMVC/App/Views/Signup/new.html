@@ -72,15 +72,6 @@
 {% endblock %}
 
 {% block body %}
-
-    {% if user.errors is not empty %}
-        <p>Errors:</p>
-        <ul>
-            {% for error in user.errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 	
 				
                     <div class="col-lg-3 register-left">
@@ -112,7 +103,7 @@
 												<i class='icon-user'></i>
 										</div>
 										<div>
-											  <input id="inputName" name="name" autofocus  type="text" class="form-control" placeholder="Imię *" value="{{ user.name }}" required />
+											  <input id="inputName" name="name" autofocus  type="text" class="form-control" placeholder="Imię *" value="{{ user.name }}" required /> <!--pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="Minimum 6 chars, at least one letter and number" />-->
 										</div>
 									</div> 
 								  

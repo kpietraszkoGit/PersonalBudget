@@ -20,8 +20,6 @@ class Lastmonthlybalance extends Authenticated
      */
     public function indexAction()
     {
-		unset($_SESSION['ok']);
-		unset($_SESSION['ok2']);
 		$lastmonthlybalance = new User($_POST);
 		$args=[];
 		

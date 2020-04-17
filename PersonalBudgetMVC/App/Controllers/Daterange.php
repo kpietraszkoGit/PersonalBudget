@@ -20,8 +20,6 @@ class Daterange extends Authenticated
      */
     public function indexAction()
     {
-		unset($_SESSION['ok']);
-		unset($_SESSION['ok2']);
 		$daterange = new User($_POST);
 		$daterange2 = new User($_POST);
 		$args=[];

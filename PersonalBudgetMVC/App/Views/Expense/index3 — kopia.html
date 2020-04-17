@@ -4,13 +4,13 @@
 
 {% block footer %}
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--AJAX-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--AJAX-->
 <script>
-  /* $(document).ready(function() {
+   $(document).ready(function() {
             /**
              * Validate the form
              */
-	/*	 $('#addExpenses').validate({
+		 $('#addExpenses').validate({
                 rules: {
 					amount: 'required',
 					pay: 'required',
@@ -26,7 +26,7 @@
                     }
 				}
 		});
-	});*/
+	});
 
 window.onload = function today()
 {
@@ -40,123 +40,81 @@ window.onload = function today()
 }
 
 ///////////////////////////////////////////////////AJAX/////////////////////////////////////////////////////////
-
-/*$(document).ready(function(){
-    $("#sel").change(function(){
-        var nameSelectCategory = $(this).children("option:selected").val();
-		var amountExpense = $("#inputAmount").val();
-		var dateExpense = $("#days").val();
-		//alert(dateExpense);
-		$("#reduction").load("/expense/new", {
-			nameSelect: nameSelectCategory,
-			nameAmount: amountExpense,
-			nameDate: dateExpense
-		});
-    });
-	
-});*/
-
-
-$(document).ready(function(){
-    $("#sel").change(function(){
-        var nameSelectCategory = $(this).children("option:selected").val();
-		var dateExpense = $("#days").val();
-		//alert(dateExpense);
-		$("#inputAmount").on("input", function(){
-			var amountExpense = $("#inputAmount").val();
-			//alert(amountExpense);
-
-			$("#reduction").load("/expense/new", {
-				nameSelect: nameSelectCategory,
-				nameAmount: amountExpense,
-				nameDate: dateExpense
-			});
-		});
-    });
-});
-
-$(document).ready(function(){
-	$("#inputAmount").on("input", function(){
-			var amountExpense = $("#inputAmount").val();
-			var dateExpense = $("#days").val();
-			//alert(dateExpense);
-		
-		$("#sel").change(function(){
-			var nameSelectCategory = $(this).children("option:selected").val();
-
-				$("#reduction").load("/expense/new", {
-					nameSelect: nameSelectCategory,
-					nameAmount: amountExpense,
-					nameDate: dateExpense
-				});
-				
-				/*$("#inputAmount").on("input", function(){
-				var amountExpense = $("#inputAmount").val();
-				//alert(amountExpense);
-
-				$("#reduction").load("/expense/new", {
-					nameSelect: nameSelectCategory,
-					nameAmount: amountExpense,
-					nameDate: dateExpense
-				});
-			});*/
-				
-		});
-    });
-	
-});
-
-/*$(document).ready(function(){
-    $("#inputAmount").on("input", function(){
-        var amountExpense = $("#inputAmount").val();
-		alert(amountExpense);
-    });
-});*/
-
-/*$(document).ready(function(){
-	$("#inputAmount").on("input", function(){
-		var amountExpense = $("#inputAmount").val();
-		var dateExpense = $("#days").val();
-		
-		if (amountExpense != 0)
+	$("#selPay").change(function(){
+	    if($(this).val() == "zero")
+	    {    		 
+	    }
+		else
 		{
-			
-			$("#sel").change(function(){
-				var nameSelectCategory = $(this).children("option:selected").val();
-			
-					$("#reduction").load("/expense/new", {
-						nameSelect: nameSelectCategory,
-						nameAmount: amountExpense,
-						nameDate: dateExpense
-					});
-					
-					
-
-					//petlawykonuj to tyle razy do puki ktoś nie wybierze nowej kategorii
-						$("#inputAmount").on("input", function(){
-						var amountExpense = $("#inputAmount").val();
-						//alert(amountExpense);
-
-						$("#reduction").load("/expense/new", {
-							nameSelect: nameSelectCategory,
-							nameAmount: amountExpense,
-							nameDate: dateExpense
-						});
-					});
-				
-				
-			});
-		
+			$('#displaytext3').html("Jeśli usuniesz sposób płatności, który jest dodany w wydatkach, zostanie tam przypisana płatność - Inne !");
 		}
-		
 	});
+	
+	/////////////////////reduction
+	$(document).ready(function() {
+		$("#sel").change(function()  {
+			if($(this).val() == "zero")
+			{    		 
+			}
+			else
+			{
+				$("#reduction").load("User.php", {
+					limitNewExpenses: limitExpensesR
+				});
+			}
+		});
+	});
+	////////////////////////////////////////////////////////////////////////////////////
+
+
+$(document).ready(function(){
+  $("#btn").click(function(){
+    $("#div1").load("/expense/test.txt", {
+		Name: "Kamil",
+		Lastname: "Nelson"
+	}, function() {
+		alert("Hi Kamil");
+	});
+  });
+});
+
+
+/*$(document).ready(function(){
+  $("#btn").click(function(){
+    $('#div1').ajax ({  
+                    url: "/expense/new",  
+					type: "GET",  
+					datatype: "json"  
+                },  function() {
+		alert("Hi Kamil");
+	});
+  });
 });*/
+
+/*$(document).ready(function () {  
+            $('#dataTable').DataTable({  
+                ajax: {  
+                    "url": "/Home/GetData",  
+                    "type": "GET",  
+                    "datatype": "json"  
+                },  
+                "columns": [  
+                    { "data": "Name" },  
+                    { "data": "Position" },  
+                    { "data": "Office" },  
+                    { "data": "Age" },  
+                    { "data": "Salary" }  
+                ]  
+            });  
+        });*/
 	
 </script>
 
 {% endblock %}
 
 {% block body %}
+<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+<button id="btn">Get External Content</button>
 
                     <div class="col-lg-3 register-left">
 
@@ -182,7 +140,7 @@ $(document).ready(function(){
 											<div class="icons">
 												<i class='icon-pencil'></i>
 											</div>
-											<input type="number"  id="inputAmount" class="form-control" name="amount" placeholder="Kwota *" value="" step="0.01" required/>
+											<input type="number"  class="form-control" name="amount" placeholder="Kwota *" value="" required />
                                         </div>     
 										
 										<div class="form-group col-md-9 mx-auto">
@@ -196,10 +154,17 @@ $(document).ready(function(){
 											<div class="icons">
 												<i class='icon-wallet'></i>
 											</div>
-
+											<!--<select class="form-control category" name="pay">
+											
+												<option value="0" selected disabled>Sposób płatności *</option>
+												<option value="Gotówka">Gotówka</option>
+												<option value="Karta debetowa">Karta debetowa</option>
+												<option value="Karta kredytowa">Karta kredytowa</option>
+											
+											</select>-->
 											<select class="form-control category" name="pay" required>
 														
-												<!--<option value="zero" selected disabled>Sposób płatności *</option>-->
+												<option value="zero" selected disabled>Sposób płatności *</option>
 
 												{% for pay in rowPay %}
 												
@@ -214,10 +179,30 @@ $(document).ready(function(){
 											<div class="icons">
 												<i class='icon-list-bullet'></i>
 											</div>
-
+											<!--<select class="form-control category" name="category">
+											
+												<option value="0" selected disabled>Kategorie wydatku *</option>
+												<option value="Transport">Transport</option>
+												<option value="Książki">Książki</option>
+												<option value="Jedzenie">Jedzenie</option>
+												<option value="Mieszkanie">Mieszkanie</option>
+												<option value="Telekomunikacja">Telekomunikacja</option>
+												<option value="Opieka zdrowotna">Opieka zdrowotna</option>
+												<option value="Ubranie">Ubranie</option>
+												<option value="Higiena">Higiena</option>
+												<option value="Dzieci">Dzieci</option>
+												<option value="Rozrywka">Rozrywka</option>
+												<option value="Wycieczka">Wycieczka</option>
+												<option value="Oszczędności">Oszczędności</option>
+												<option value="Na emeryture">Na emeryture</option>
+												<option value="Spłata długów">Spłata długów</option>
+												<option value="Darowizna">Darowizna</option>
+												<option value="Inne">Inne...</option>
+											
+											</select>-->
 											<select id="sel" class="form-control category" name="category" required>
 															
-												<!--<option value="zero" selected disabled>Kategorie wydatku *</option>-->
+												<option value="zero" selected disabled>Kategorie wydatku *</option>
 
 												{% for category in rowCategoryExpenses %}
 												
@@ -238,9 +223,29 @@ $(document).ready(function(){
 										
                                     </div>
 									
-									<div class="form-group col-md-9 mx-auto limit" id="reduction">	
-									</div>
+									<div class="form-group col-md-9 mx-auto limit" id="reduction">
+									
+                                            <table cellpadding="4" cellspacing="0">
+												<thead>
+													<tr><th>Limit</th><th>Dotychczas wydane</th><th>Różnica</th><th>Wydatki+wpisana kwota</th></tr>
+												</thead>
+												<tbody>
+																							
+											
+												<tr>
+												<td>1000</td>
+												<td>0</td>
+												<td>1000</td>
+												<td>400</td>
+												</tr>
+																					
 
+												</tbody>
+												
+											</table>
+											
+									</div>
+							
 									<div class="col-md-12 buttonsExpense">
 									
 										<input type="submit" class="btn-success btnRegister2"  value="Dodaj"/>
