@@ -44,5 +44,5 @@ class Config
      * Secret key for hashing
      * @var boolean
      */
-    const SECRET_KEY = 'mKtiTyXBksXGintgy7nz9DscCplydf6T';
+    const SECRET_KEY = '***mKtiTyXBksXGintgy7nz9DscCplydf6T';
 }
