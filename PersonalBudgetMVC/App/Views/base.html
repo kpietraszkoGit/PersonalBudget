@@ -84,24 +84,24 @@
 		<section>
 		
 			<div class="container register mt-1">
-					<nav class="navbar fixed-top">
-						<div class="container-fluid  d-flex flex-row-reverse">
-						
-								{% for message in flash_messages %}
-									<div class="alert alert-{{ message.type }}">
-										{{ message.body }}
-									</div>
-								{% endfor %}
-								
-						</div>
-					</nav>
-					
-					<div class="row">
+				<nav class="navbar fixed-top">
+					<div class="container-fluid  d-flex flex-row-reverse">
 
-					{% block body %}
-					{% endblock %}
-					
+						{% for message in flash_messages %}
+							<div class="alert alert-{{ message.type }}">
+								{{ message.body }}
+							</div>
+						{% endfor %}
+
 					</div>
+				</nav>
+
+				<div class="row">
+
+				{% block body %}
+				{% endblock %}
+
+				</div>
 			</div>
 			
 		</section>
@@ -116,8 +116,8 @@
 	
 	</footer>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/jquery-3.2.1.min.js"></script>
