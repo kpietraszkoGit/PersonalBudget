@@ -92,8 +92,8 @@ h1.logo
 .register-right
 {
 	background: #f8f9fa;
-	border-top-left-radius: 10% 50%;/*zawiniete boki*/
-	border-bottom-left-radius: 10% 50%;/*zawiniete boki*/
+	border-top-left-radius: 10% 50%;
+	border-bottom-left-radius: 10% 50%;
 	border-top-right-radius: 12px;
 	border-bottom-right-radius: 12px;
 	height: 100%;
@@ -199,8 +199,8 @@ h1.logo
 	.register-right
 	{
 		height: 100%;
-		border-top-left-radius: 12px;/*zawiniete boki*/
-		border-bottom-left-radius: 12px;/*zawiniete boki*/
+		border-top-left-radius: 12px;
+		border-bottom-left-radius: 12px;
 	}
 	.register .nav-tabs .nav-link.active
 	{
@@ -434,7 +434,7 @@ input[type=reset]:hover
 	padding: 4%;
 	border: solid 1px #bd7d1e;
 	border-radius: 1.5rem;
-	cursor: pointer;/*kursor zmienia sie na łapkę*/
+	cursor: pointer;
 	font-weight: 600;
 } 
 
