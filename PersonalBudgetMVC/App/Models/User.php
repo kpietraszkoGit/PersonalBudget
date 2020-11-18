@@ -73,7 +73,7 @@ class User extends \Core\Model
   
   /*add from default table*/
    public function addDefaultTableIncomes()
-  {
+   {
 
     if (empty($this->errors)) {  
 		
@@ -89,11 +89,11 @@ class User extends \Core\Model
 	}
 
     return false;
-  }
+   }
   
   
    public function addDefaultTableExpenses()
-  {
+   {
 
     if (empty($this->errors)) {  
 		
@@ -109,11 +109,11 @@ class User extends \Core\Model
 	}
 
     return false;
-  }
+   }
   
   
    public function addDefaultTablePayment()
-  {
+   {
 
     if (empty($this->errors)) {  
 		
@@ -129,7 +129,7 @@ class User extends \Core\Model
 	}
 
     return false;
-  }
+   }
   
   /**
      * Validate current property values, adding valiation error messages to the errors array property
@@ -398,7 +398,6 @@ class User extends \Core\Model
 
         return $stmt->fetch();
     }
-
 
     public static function findByAddPay($addPay)
     {
