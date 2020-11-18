@@ -2,43 +2,30 @@
 body
 {
 	margin: 0;
-	/*background-image: url('img/kropki.png');*/
 	color: #efefef;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 17px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 17px;
 }
 
-.alert {
-   /* border: 1px solid #ccc;*/
-    padding: 5px;
+.alert 
+{
+    	padding: 5px;
 	border-radius: 12px;
-	/*margin-bottom: 8px;
-	/*margin-top: -2%;*/
 	margin: 1%;
-}
-.alert-info {
-    /*background-color: #d9edf7;*/
-}
-.alert-success {
-    /*background-color: #dff0d8;*/
-}
-.alert-warning {
-    /*background-color: #fcf8e3;*/
 }
 
 .checkbox2
 {
-	/*color: #c2780a;*/
 	color: #495057;
 }
 
 h1.logo
 {
 	font-size: 230%;
-	font-weight: 700;/*grubosc czcionki*/
+	font-weight: 700;
 	color: #c2780a;
 	text-align: center;
-	letter-spacing: 5px;/*rozstrzelenie*/
+	letter-spacing: 5px;
 	margin-top: 5px;
 	text-shadow: black 0.1em 0.1em 0.2em;
 	font-family: 'Philosopher', sans-serif;
@@ -88,9 +75,9 @@ h1.logo
 
 .register-left
 {
-    text-align: center;
-    color: #f8f9fa;
-    margin-top: 1%;
+	text-align: center;
+	color: #f8f9fa;
+	margin-top: 1%;
 	text-shadow: black 0.1em 0.1em 0.2em;
 	margin-top: auto;
 	margin-bottom: auto;
@@ -104,9 +91,9 @@ h1.logo
 
 .register-right
 {
-    background: #f8f9fa;
-    border-top-left-radius: 10% 50%;/*zawiniete boki*/
-    border-bottom-left-radius: 10% 50%;/*zawiniete boki*/
+	background: #f8f9fa;
+	border-top-left-radius: 10% 50%;/*zawiniete boki*/
+	border-bottom-left-radius: 10% 50%;/*zawiniete boki*/
 	border-top-right-radius: 12px;
 	border-bottom-right-radius: 12px;
 	height: 100%;
@@ -116,48 +103,48 @@ h1.logo
 #icon
 {
 	margin-top: 8%;
-    margin-bottom: 4%;
+	margin-bottom: 4%;
 	-webkit-animation: mover 2s infinite  alternate;
-    animation: mover 1s infinite  alternate;
+	animation: mover 1s infinite  alternate;
 }
 
 @-webkit-keyframes mover 
-{ /*ruch ikonki*/
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
+{
+	0% { transform: translateY(0); }
+	100% { transform: translateY(-20px); }
 }
 
 @keyframes mover 
 {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
+	0% { transform: translateY(0); }
+	100% { transform: translateY(-20px); }
 }
 
 .register-left p
 {
-    font-weight: lighter;
-    padding: 12%;
-    margin-top: -9%;
+	font-weight: lighter;
+	padding: 12%;
+	margin-top: -9%;
 }
 
-.register .register-form/*tutaj zmiana inputow ale mozna osobna klase do tego napisac*/
+.register .register-form
 {
 	padding: 6%;
-    margin-top: 12%;
+	margin-top: 12%;
 }
 
 .btnRegister
 {
-    float: right;
-    margin-top: 4%;
+	float: right;
+	margin-top: 4%;
 	border: solid 1px #e0a32a;
-    border-radius: 1.5rem;
-    padding: 2%;
-    background: #e0a32a;
-    color: #fff;
-    font-weight: 600;
-    width: 160px;
-    cursor: pointer;
+	border-radius: 1.5rem;
+	padding: 2%;
+	background: #e0a32a;
+	color: #fff;
+	font-weight: 600;
+	width: 160px;
+	cursor: pointer;
 }
 
 .btnRegister:active, .btnRegister:focus
@@ -167,47 +154,47 @@ h1.logo
 
 .register .nav-tabs
 {
-    margin-top: 3%;
-    border: none;
-    background: #e0a32a;
-    border-radius: 1.5rem;
-    width: 28%;
-    float: right;
+	margin-top: 3%;
+	border: none;
+	background: #e0a32a;
+	border-radius: 1.5rem;
+	width: 28%;
+	float: right;
 }
 
 .register .nav-tabs .nav-link
 {
-    padding: 2%;
-    height: 34px;
-    font-weight: 600;
-    color: #fff;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
+	padding: 2%;
+	height: 34px;
+	font-weight: 600;
+	color: #fff;
+	border-top-right-radius: 1.5rem;
+	border-bottom-right-radius: 1.5rem;
 }
 
 .register .nav-tabs .nav-link:hover
 {
-    border: none;
+	border: none;
 }
 
 .register .nav-tabs .nav-link.active
 {
-    width: 100%;/*110*/
-    color: #e0bd00;
-    border: 2px solid #e0bd00;
-    border-top-left-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
+	width: 100%;
+	color: #e0bd00;
+	border: 2px solid #e0bd00;
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
 }
 
 .register-heading
 {
-    text-align: center;
-    margin-top: 8%;
-    margin-bottom: -15%;
-    color: #495057;
+	text-align: center;
+	margin-top: 8%;
+	margin-bottom: -15%;
+	color: #495057;
 }
 
-@media (max-width: 767px) /* do szerokości 575 px bedziemy mieć stylizacje jak poniżej*/
+@media (max-width: 767px)
 {
 	.register-right
 	{
@@ -217,20 +204,18 @@ h1.logo
 	}
 	.register .nav-tabs .nav-link.active
 	{
-		width: 100%;/*110*/
-		/*font-size: 14px;*/
+		width: 100%;
 		overflow:hidden;
 	}
 	.register .nav-tabs .nav-link
 	{
-		width: 100%;/*110*/
-		/*font-size: 14px;*/
+		width: 100%;
 		overflow:hidden;
 		height: 100%;
 	}
 }
 
-@media (min-width: 768px) and (max-width: 1199px) /* do szerokości 575 px bedziemy mieć stylizacje jak poniżej*/
+@media (min-width: 768px) and (max-width: 1199px)
 {
 	.register-right
 	{
@@ -247,7 +232,7 @@ h1.logo
 {
 }
 
-input[type=text]:focus,/*jesli pole zyskuje aktywnosc co ma sie stać-focus*/
+input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus,
 input[type=number]:focus,
@@ -274,26 +259,26 @@ input[type=reset]:hover
 .description
 {
 	font-size: 22px;
-    color: #363a3e;
+	color: #363a3e;
 	margin-top: -10px;
 }
 
 .description2
 {
 	font-size: 16px;
-    color: #495057;
+	color: #495057;
 	text-align: left;
 }
 
-
-.description-form/*tutaj zmiana inputow ale mozna osobna klase do tego napisac*/
+.description-form
 {
 	padding: 8%;
-    margin-top: 12%;
+	margin-top: 12%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
+
 .description-form img
 {
 	margin-left: auto;
@@ -303,18 +288,18 @@ input[type=reset]:hover
 
 .bg-gold
 {
-	background: -webkit-linear-gradient(left, #c2780a, #f9c831) !important;/*bez zmienny kolor, najważniejszy*/
+	background: -webkit-linear-gradient(left, #c2780a, #f9c831) !important;
 }
 
 .navbar-custom .navbar-nav .nav-link 
 {
-    color: #f8f9fa;
+	color: #f8f9fa;
 }
 
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:hover .nav-link 
 {
-    color: #fffdcc;
+	color: #fffdcc;
 }
 
 .menu
@@ -344,10 +329,10 @@ input[type=reset]:hover
 	color: #fffdcc;
 }
 
-.navbar-toggler:focus, .navbar-toggler:active /*wylaczenie obramowanie*/
+.navbar-toggler:focus, .navbar-toggler:active
 {
-    outline: none;
-    box-shadow: none;
+	outline: none;
+	box-shadow: none;
 }
 
 /*addIncome*/
@@ -360,7 +345,7 @@ input[type=reset]:hover
 	border: 2px solid #e0a32a;
 }
 
-.category option /*srodek select*/
+.category option
 {
 	background-color: #e0a32a;
 }
@@ -368,9 +353,9 @@ input[type=reset]:hover
 .register-heading2
 {
 	text-align: center;
-    margin-top: 3%;
-    margin-bottom: -15%;
-    color: #495057;
+	margin-top: 3%;
+	margin-bottom: -15%;
+	color: #495057;
 }
 
 .buttons
@@ -390,12 +375,12 @@ input[type=reset]:hover
 	margin-top: 6%;
 	margin-left: 5%;
 	border: solid 1px #e0a32a;
-    border-radius: 1.5rem;
+	border-radius: 1.5rem;
 	padding: 2%;
-    color: #fff;
-    font-weight: 600;
-    width: 160px;
-    cursor: pointer;
+	color: #fff;
+	font-weight: 600;
+	width: 160px;
+	cursor: pointer;
 }
 
 .welcome
@@ -428,7 +413,7 @@ input[type=reset]:hover
 	color: #495057;
 }
 
-.register .registerBalance-form/*tutaj zmiana inputow ale mozna osobna klase do tego napisac*/
+.register .registerBalance-form
 {
 	padding: 6%;
 }
@@ -436,7 +421,7 @@ input[type=reset]:hover
 .register-headingBalance
 {
 	text-align: center;
-    color: #495057;
+	color: #495057;
 }
 
 /* Dropdown Button */
@@ -477,10 +462,9 @@ input[type=reset]:hover
 	background-color: #ffffff;
 	color: #495057;
 	margin-left: 10px;
-	/*margin-top: -1px;*/
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/* Show the dropdown menu */
 .show 
 {
 	display: block;
@@ -531,7 +515,7 @@ table
 #sum
 {
 	font-size: 22px;
-	color: #e04e2a;/*jak bedzie dobrze to zielnoy kolor*/
+	color: #e04e2a;
 	text-align: center;
 	margin: 3%;
 	font-weight: 700;
@@ -539,10 +523,11 @@ table
 	border-radius: 1.5rem;
 	text-shadow: 2px 1px 1px #FFFFFF;
 }
+
 #sum2
 {
 	font-size: 22px;
-	color: green;/*jak bedzie dobrze to zielnoy kolor*/
+	color: green;
 	text-align: center;
 	margin: 3%;
 	font-weight: 700;
@@ -574,9 +559,9 @@ table
 
 .add
 {
-    margin-top: 1%;
-    margin-bottom: -15%;
-    color: #495057;
+	margin-top: 1%;
+	margin-bottom: -15%;
+	color: #495057;
 	font-size: 16px;
 	margin-left:auto;
 	margin-right:auto;
@@ -584,19 +569,21 @@ table
 }
 
 /*pie chart*/
-#chart_wrap {
-    position: relative;
-    padding-bottom: 50%;
-    height: 0;
-    overflow:hidden;
+#chart_wrap 
+{
+	position: relative;
+	padding-bottom: 50%;
+	height: 0;
+	overflow:hidden;
 }
 
-#chart_div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width:100%;
-    height:100%;
+#chart_div 
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	height:100%;
 }
 
 /*settings*/
