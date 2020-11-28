@@ -31,7 +31,6 @@ class Monthlybalance extends Authenticated
 
     }
 	
-	//to chyba nie trzeba
 	public function createAction()
     {
 

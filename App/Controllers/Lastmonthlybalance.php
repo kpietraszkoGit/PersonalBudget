@@ -31,7 +31,7 @@ class Lastmonthlybalance extends Authenticated
         View::renderTemplate('Lastmonthlybalance/index.html', $args);
 
     }
-	//to chyba nie trzeba
+
 	public function createAction()
     {
 

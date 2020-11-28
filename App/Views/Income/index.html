@@ -5,27 +5,6 @@
 {% block footer %}
 
 <script>
-
- /*  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-  /*       $('#addIncomes').validate({
-                rules: {
-					amount: 'required',
-					category: {
-                        required: true
-                    }
-                },
-                messages: {
-					amount: 'To pole jest wymagane',
-					category:  {
-						required: 'To pole jest wymagane'
-                    }
-				}
-		});
-	});*/
-
 window.onload = function today()
 {
 		let d = new Date();
@@ -79,9 +58,7 @@ window.onload = function today()
 												<div class="icons">
 													<i class='icon-list-bullet'></i>
 												</div>
-												<select class="form-control category" name="category" required>
-														
-													<!--<option value="zero" selected disabled >Kategorie przychodu *</option>-->
+												<select class="form-control category" name="category" required>									
 
 													{% for category in rowCategory %}
 													

@@ -57,210 +57,217 @@
 
  $(document).ready(function() {
 
-            /**
-             * Validate the form
-             */
-            $('#formCategoryIncomes').validate({
-                rules: {
-					categoryAddIncomes: {
-                        required: true,
-						minlength: 3,
-						validCategory: true
-                    }
-                },
-                messages: {
-					 categoryAddIncomes:  {
-						required: 'To pole jest wymagane',
-						minlength: 'Wprowadź co najmniej 3 znaki'
-                    }
+		/**
+		 * Validate the form
+		 */
+		$('#formCategoryIncomes').validate({
+			rules: {
+				categoryAddIncomes: {
+					required: true,
+					minlength: 3,
+					validCategory: true
 				}
+			},
+			messages: {
+				 categoryAddIncomes:  {
+					required: 'To pole jest wymagane',
+					minlength: 'Wprowadź co najmniej 3 znaki'
+				}
+			}
 		});
 	});
 	
  $(document).ready(function() {
 
-            /**
-             * Validate the form
-             */
-            $('#formCategoryExpenses').validate({
-                rules: {
-					categoryAddExpenses: {
-                        required: true,
-						minlength: 3,
-						validCategory: true
-                    }
-                },
-                messages: {
-					 categoryAddExpenses:  {
-						required: 'To pole jest wymagane',
-						minlength: 'Wprowadź co najmniej 3 znaki'
-                    }
+		/**
+		 * Validate the form
+		 */
+		$('#formCategoryExpenses').validate({
+			rules: {
+				categoryAddExpenses: {
+					required: true,
+					minlength: 3,
+					validCategory: true
 				}
+			},
+			messages: {
+				 categoryAddExpenses:  {
+					required: 'To pole jest wymagane',
+					minlength: 'Wprowadź co najmniej 3 znaki'
+				}
+			}
 		});
 	});
 	
  $(document).ready(function() {
 
-            /**
-             * Validate the form
-             */
-            $('#formAddPay').validate({
-                rules: {
-					addPay: {
-                        required: true,
-						minlength: 3,
-						validCategory: true
-                    }
-                },
-                messages: {
-					 addPay:  {
-						required: 'To pole jest wymagane',
-						minlength: 'Wprowadź co najmniej 3 znaki'
-                    }
+		/**
+		 * Validate the form
+		 */
+		$('#formAddPay').validate({
+			rules: {
+				addPay: {
+					required: true,
+					minlength: 3,
+					validCategory: true
 				}
+			},
+			messages: {
+				 addPay:  {
+					required: 'To pole jest wymagane',
+					minlength: 'Wprowadź co najmniej 3 znaki'
+				}
+			}
 		});
 	});
 
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-            $('#formEditCategoryIncomes').validate({
-                rules: {
-					categoryIncomes: 'required',
-					categoryEditIncomes: {
-                        required: true,
-						minlength: 3,
-						validCategory: true
-                    }
-                },
-                messages: {
-					categoryIncomes: 'To pole jest wymagane',
-					categoryEditIncomes:  {
-						required: 'To pole jest wymagane',
-						minlength: 'Wprowadź co najmniej 3 znaki'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formEditCategoryIncomes').validate({
+			rules: {
+				categoryIncomes: 'required',
+				categoryEditIncomes: {
+					required: true,
+					minlength: 3,
+					validCategory: true
 				}
+			},
+			messages: {
+				categoryIncomes: 'To pole jest wymagane',
+				categoryEditIncomes:  {
+					required: 'To pole jest wymagane',
+					minlength: 'Wprowadź co najmniej 3 znaki'
+				}
+			}
 		});
 	});
 
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-            $('#formEditCategoryExpenses').validate({
-                rules: {
-					categoryExpenses: 'required',
-					categoryEditExpenses: {
-                        required: true,
-						minlength: 3,
-						validCategory: true
-                    }
-                },
-                messages: {
-					categoryExpenses: 'To pole jest wymagane',
-					categoryEditExpenses:  {
-						required: 'To pole jest wymagane',
-						minlength: 'Wprowadź co najmniej 3 znaki'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formEditCategoryExpenses').validate({
+			rules: {
+				categoryExpenses: 'required',
+				categoryEditExpenses: {
+					required: true,
+					minlength: 3,
+					validCategory: true
 				}
+			},
+			messages: {
+				categoryExpenses: 'To pole jest wymagane',
+				categoryEditExpenses:  {
+					required: 'To pole jest wymagane',
+					minlength: 'Wprowadź co najmniej 3 znaki'
+				}
+			}
 		});
 	});
 
 
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-         $('#formLimitCategoryExpenses').validate({
-                rules: {
-					amountLimit: 'required',
-					categoryExpenses: {
-                        required: true
-                    }
-                },
-                messages: {
-					amountLimit: 'To pole jest wymagane',
-					categoryExpenses:  {
-						required: 'To pole jest wymagane'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formLimitCategoryExpenses').validate({
+			rules: {
+				amountLimit: 'required',
+				categoryExpenses: {
+					required: true
 				}
+			},
+			messages: {
+				amountLimit: 'To pole jest wymagane',
+				categoryExpenses:  {
+					required: 'To pole jest wymagane'
+				}
+			}
 		});
 	});
 
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-            $('#formEditPay').validate({
-                rules: {
-					editPay: 'required',
-					updatePay: {
-                        required: true,
-						minlength: 3,
-						validCategory: true
-                    }
-                },
-                messages: {
-					editPay: 'To pole jest wymagane',
-					updatePay:  {
-						required: 'To pole jest wymagane',
-						minlength: 'Wprowadź co najmniej 3 znaki'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formEditPay').validate({
+			rules: {
+				editPay: 'required',
+				updatePay: {
+					required: true,
+					minlength: 3,
+					validCategory: true
 				}
+			},
+			messages: {
+				editPay: 'To pole jest wymagane',
+				updatePay:  {
+					required: 'To pole jest wymagane',
+					minlength: 'Wprowadź co najmniej 3 znaki'
+				}
+			}
 		});
 	});
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-            $('#formRemoveCategoryIncomes').validate({
-                rules: {
-					categoryIncomes: {
-                        required: true
-                    }
-                },
-                messages: {
-					categoryIncomes:  {
-						required: 'To pole jest wymagane'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formRemoveCategoryIncomes').validate({
+			rules: {
+				categoryIncomes: {
+					required: true
 				}
+			},
+			messages: {
+				categoryIncomes:  {
+					required: 'To pole jest wymagane'
+				}
+			}
 		});
 	});
 
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-            $('#formRemoveCategoryExpense').validate({
-                rules: {
-					categoryExpenses: {
-                        required: true
-                    }
-                },
-                messages: {
-					categoryExpenses:  {
-						required: 'To pole jest wymagane'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formRemoveCategoryExpense').validate({
+			rules: {
+				categoryExpenses: {
+					required: true
 				}
+			},
+			messages: {
+				categoryExpenses:  {
+					required: 'To pole jest wymagane'
+				}
+			}
 		});
 	});
 	
  $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-            $('#formRemovePay').validate({
-                rules: {
-					removePay: {
-                        required: true
-                    }
-                },
-                messages: {
-					removePay:  {
-						required: 'To pole jest wymagane'
-                    }
+ 
+		/**
+		 * Validate the form
+		 */
+		$('#formRemovePay').validate({
+			rules: {
+				removePay: {
+					required: true
 				}
+			},
+			messages: {
+				removePay:  {
+					required: 'To pole jest wymagane'
+				}
+			}
 		});
 	});
 
@@ -288,7 +295,6 @@
 								</div>
 																				
 								<div class="col-md-10 resumeBalance">
-									
 									<div id="accordion" class="my-3">
 									  <div class="card">
 										<div class="card-header" id="headingOne">
@@ -365,7 +371,6 @@
 										</div>
 									  </div>
 									</div>
-									
 								</div>
 								
 								<!-- Modal add  category incomes-->
@@ -397,7 +402,6 @@
 											</div>
 										</div>
 									</div>
-									
 								</form>
 								
 								<!-- Modal edit category incomes-->
@@ -421,9 +425,7 @@
 															<i class='icon-list-bullet'></i>
 														</div>														
 														<select class="form-control category" name="categoryIncomes" required>
-															
-																<!--<option value="zero" selected disabled>Kategorie przychodu *</option>-->
-
+								
 																{% for category in rowCategoryIncomes %}
 																
 																<option value="{{category.name}}">{{category.name}}</option>
@@ -442,8 +444,7 @@
 															<i class='icon-pencil'></i>
 														</div>
 														<input type="text" class="form-control" autofocus placeholder="Edytowana kategoria *" name="categoryEditIncomes" value="" required />	
-													</div>
-													
+													</div>	
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -456,7 +457,6 @@
 								
 								<!-- Modal remove category incomes-->
 								<form method="post" action="/settings/delete" id="formRemoveCategoryIncomes">		
-								
 									<div class="modal fade" id="incomeRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
@@ -468,29 +468,25 @@
 													</button>
 												</div>
 												<div class="modal-body">
-												
-														<div class="form-group col-md-9 mx-auto">
-															<div class="icons">
-																<i class='icon-list-bullet'></i>
-															</div>														
-															<select id="selIncomes"  class="form-control category" name="categoryIncomes" required>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>														
+														<select id="selIncomes"  class="form-control category" name="categoryIncomes" required>
+														
+															{% for category in rowCategoryIncomes %}
 															
-																<!--<option value="zero" selected disabled>Kategorie przychodu *</option>-->
+															<option value="{{category.name}}">{{category.name}}</option>
 
-																{% for category in rowCategoryIncomes %}
-																
-																<option value="{{category.name}}">{{category.name}}</option>
+															{% endfor %}
+															<option value="Inne" selected disabled>Inne</option>
+															<option value="zero" selected disabled>Kategorie przychodu *</option>
 
-																{% endfor %}
-																<option value="Inne" selected disabled>Inne</option>
-																<option value="zero" selected disabled>Kategorie przychodu *</option>
-
-															</select>
-														</div>
-														<div class="form-group col-md-9 mx-auto">
-															<div id="displaytext" class="text-center text-danger"></div>
-														</div>
-											
+														</select>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div id="displaytext" class="text-center text-danger"></div>
+													</div>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -515,14 +511,12 @@
 													</button>
 												</div>
 												<div class="modal-body">
-												
 													<div class="form-group col-md-9 mx-auto">
 														<div class="icons">
 															<i class='icon-pencil'></i>
 														</div>
 														<input type="text" class="form-control" autofocus placeholder="Nowa kategoria *" name="categoryAddExpenses" value="" required />
-													</div>
-														
+													</div>			
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -556,8 +550,6 @@
 														</div>														
 														<select class="form-control category" name="categoryExpenses" required>
 														
-															<!--<option value="zero" selected disabled>Kategorie wydatku *</option>-->
-
 															{% for category in rowCategoryExpenses %}
 															
 															<option value="{{category.name}}">{{category.name}}</option>
@@ -576,8 +568,7 @@
 															<i class='icon-pencil'></i>
 														</div>
 														<input type="text" class="form-control" autofocus placeholder="Edytowana kategoria *" name="categoryEditExpenses" value="" required />	
-													</div>
-													
+													</div>												
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -631,7 +622,6 @@
 														</div>
 														<input type="number"  class="form-control" name="amountLimit"  placeholder="Kwota limitu *" value=""  required/>
 													</div> 
-													
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -656,29 +646,25 @@
 													</button>
 												</div>
 												<div class="modal-body">
-												
-														<div class="form-group col-md-9 mx-auto">
-															<div class="icons">
-																<i class='icon-list-bullet'></i>
-															</div>														
-															<select id="selExpenses"  class="form-control category" name="categoryExpenses" required>
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>														
+														<select id="selExpenses"  class="form-control category" name="categoryExpenses" required>
+													
+														{% for category in rowCategoryExpenses %}
 														
-															<!--<option value="zero" selected disabled>Kategorie wydatku *</option>-->
+														<option value="{{category.name}}">{{category.name}}</option>
 
-															{% for category in rowCategoryExpenses %}
-															
-															<option value="{{category.name}}">{{category.name}}</option>
-
-															{% endfor %}
-															<option value="Inne" selected disabled>Inne</option>
-															<option value="zero" selected disabled>Kategorie wydatku *</option>
-															
-															</select>
-														</div>
-														<div class="form-group col-md-9 mx-auto">
-															<div id="displaytext2" class="text-center text-danger"></div>
-														</div>
-											
+														{% endfor %}
+														<option value="Inne" selected disabled>Inne</option>
+														<option value="zero" selected disabled>Kategorie wydatku *</option>
+														
+														</select>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div id="displaytext2" class="text-center text-danger"></div>
+													</div>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -702,15 +688,13 @@
 													  <span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-												
+												<div class="modal-body">												
 													<div class="form-group col-md-9 mx-auto">
 														<div class="icons">
 															<i class='icon-pencil'></i>
 														</div>
 														<input type="text" class="form-control" autofocus placeholder="Nowy sposób płatności *" name="addPay" value="" required />
-													</div>
-														
+													</div>	
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -744,8 +728,6 @@
 														</div>														
 														<select class="form-control category" name="editPay" required>
 														
-															<!--<option value="zero" selected disabled>Sposób płatności *</option>-->
-
 																{% for pay in rowPay %}
 																
 																<option value="{{pay.name}}">{{pay.name}}</option>
@@ -764,8 +746,7 @@
 															<i class='icon-pencil'></i>
 														</div>
 														<input type="text" class="form-control" autofocus placeholder="Edytowany sposób płatności *" name="updatePay" value="" required />	
-													</div>
-													
+													</div>												
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -789,30 +770,26 @@
 													  <span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-												
-														<div class="form-group col-md-9 mx-auto">
-															<div class="icons">
-																<i class='icon-list-bullet'></i>
-															</div>														
-															<select id="selPay" class="form-control category" name="removePay" required>
-														
-																<!--<option value="zero" selected disabled>Sposób płatności *</option>-->
+												<div class="modal-body">												
+													<div class="form-group col-md-9 mx-auto">
+														<div class="icons">
+															<i class='icon-list-bullet'></i>
+														</div>														
+														<select id="selPay" class="form-control category" name="removePay" required>
+													
+															{% for pay in rowPay %}
+															
+															<option value="{{pay.name}}">{{pay.name}}</option>
 
-																{% for pay in rowPay %}
-																
-																<option value="{{pay.name}}">{{pay.name}}</option>
+															{% endfor %}
+															<option value="Inne" selected disabled>Inne</option>
+															<option value="zero" selected disabled>Sposób płatności *</option>
 
-																{% endfor %}
-																<option value="Inne" selected disabled>Inne</option>
-																<option value="zero" selected disabled>Sposób płatności *</option>
-
-															</select>
-														</div>
-														<div class="form-group col-md-9 mx-auto">
-															<div id="displaytext3" class="text-center text-danger"></div>
-														</div>
-											
+														</select>
+													</div>
+													<div class="form-group col-md-9 mx-auto">
+														<div id="displaytext3" class="text-center text-danger"></div>
+													</div>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -824,8 +801,7 @@
 									
 								</form>
 								
-								<!-- Modal edit profil -->
-								<!--<form method="post">-->				
+								<!-- Modal edit profil -->		
 									<div class="modal fade" id="editprofilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
@@ -836,36 +812,30 @@
 													  <span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-												
-												<div class="form-group col-md-9 mx-auto">
-													<p class="edit">Dane osobowe:</p>
+												<div class="modal-body">												
+													<div class="form-group col-md-9 mx-auto">
+														<p class="edit">Dane osobowe:</p>
 
-														<table cellpadding="10" cellspacing="0">
-														   <thead>
-																<tr><th>Imię:</th><th>																					
-																	{{ user.username }}
-																</th></tr>
-																<tr><th>e-mail:</th><th>																					
-																	{{ user.email }}
-																</th></tr>
-															</thead>
-														</table>
+															<table cellpadding="10" cellspacing="0">
+															   <thead>
+																	<tr><th>Imię:</th><th>																					
+																		{{ user.username }}
+																	</th></tr>
+																	<tr><th>e-mail:</th><th>																					
+																		{{ user.email }}
+																	</th></tr>
+																</thead>
+															</table>
 
-													<a href="/profile/edit"><i class='icon-edit'></i>Edytuj profil</a>
-												</div>	
-													
-														
+														<a href="/profile/edit"><i class='icon-edit'></i>Edytuj profil</a>
+													</div>									
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Wyjdź</button>
-													<!--<button type="submit" class="btn ok">Dodaj</button>-->
 												</div>
 											</div>
 										</div>
 									</div>
-									
-								<!--</form>-->
 								
 								<!-- Modal remove Incomes and Expenses-->
 								<form method="post" action="/settings/removeAll" id="formEditPay">								
@@ -879,13 +849,10 @@
 													  <span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-												
+												<div class="modal-body">											
 													<div class="form-group col-md-9 mx-auto">
 													<p class="edit text-center">Jeśli chcesz usunąć wszystkie przychody i wydatki na swoim koncie naciśnij przycisk Usuń</p>
-													</div>									
-													
-													
+													</div>																									
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
@@ -908,13 +875,10 @@
 													  <span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-												
+												<div class="modal-body">												
 													<div class="form-group col-md-9 mx-auto">
 													<p class="edit text-center">Jeśli chcesz usunąć swoje konto wraz z wszystkimi dodanymi przychodami i wydatkami naciśnij przycisk Usuń</p>
 													</div>									
-													
-													
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>

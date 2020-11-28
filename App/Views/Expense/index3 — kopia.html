@@ -7,9 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--AJAX-->
 <script>
    $(document).ready(function() {
-            /**
-             * Validate the form
-             */
+		/**
+		 * Validate the form
+		 */
 		 $('#addExpenses').validate({
                 rules: {
 					amount: 'required',
@@ -28,18 +28,18 @@
 		});
 	});
 
-window.onload = function today()
-{
-		let d = new Date();
-		let currDate = d.getDate();
-		let currMonth = d.getMonth()+1;
-		let currYear = d.getFullYear();
-				
-		document.getElementById("days").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
-		document.getElementById("days2").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
-}
+	window.onload = function today()
+	{
+			let d = new Date();
+			let currDate = d.getDate();
+			let currMonth = d.getMonth()+1;
+			let currYear = d.getFullYear();
+					
+			document.getElementById("days").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+			document.getElementById("days2").value = currYear + "-" + ((currMonth<10) ? '0'+currMonth : currMonth )+ "-" + ((currDate<10) ? '0'+currDate : currDate );
+	}
 
-///////////////////////////////////////////////////AJAX/////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////AJAX/////////////////////////////////////////////////////////
 	$("#selPay").change(function(){
 	    if($(this).val() == "zero")
 	    {    		 
@@ -64,50 +64,18 @@ window.onload = function today()
 			}
 		});
 	});
-	////////////////////////////////////////////////////////////////////////////////////
-
-
-$(document).ready(function(){
-  $("#btn").click(function(){
-    $("#div1").load("/expense/test.txt", {
-		Name: "Kamil",
-		Lastname: "Nelson"
-	}, function() {
-		alert("Hi Kamil");
-	});
-  });
-});
-
-
-/*$(document).ready(function(){
-  $("#btn").click(function(){
-    $('#div1').ajax ({  
-                    url: "/expense/new",  
-					type: "GET",  
-					datatype: "json"  
-                },  function() {
-		alert("Hi Kamil");
-	});
-  });
-});*/
-
-/*$(document).ready(function () {  
-            $('#dataTable').DataTable({  
-                ajax: {  
-                    "url": "/Home/GetData",  
-                    "type": "GET",  
-                    "datatype": "json"  
-                },  
-                "columns": [  
-                    { "data": "Name" },  
-                    { "data": "Position" },  
-                    { "data": "Office" },  
-                    { "data": "Age" },  
-                    { "data": "Salary" }  
-                ]  
-            });  
-        });*/
 	
+	////////////////////////////////////////////////////////////////////////////////////
+	$(document).ready(function(){
+	  $("#btn").click(function(){
+		$("#div1").load("/expense/test.txt", {
+			Name: "Kamil",
+			Lastname: "Nelson"
+		}, function() {
+			alert("Hi Kamil");
+		});
+	  });
+	});
 </script>
 
 {% endblock %}
@@ -154,14 +122,6 @@ $(document).ready(function(){
 											<div class="icons">
 												<i class='icon-wallet'></i>
 											</div>
-											<!--<select class="form-control category" name="pay">
-											
-												<option value="0" selected disabled>Sposób płatności *</option>
-												<option value="Gotówka">Gotówka</option>
-												<option value="Karta debetowa">Karta debetowa</option>
-												<option value="Karta kredytowa">Karta kredytowa</option>
-											
-											</select>-->
 											<select class="form-control category" name="pay" required>
 														
 												<option value="zero" selected disabled>Sposób płatności *</option>
@@ -179,27 +139,6 @@ $(document).ready(function(){
 											<div class="icons">
 												<i class='icon-list-bullet'></i>
 											</div>
-											<!--<select class="form-control category" name="category">
-											
-												<option value="0" selected disabled>Kategorie wydatku *</option>
-												<option value="Transport">Transport</option>
-												<option value="Książki">Książki</option>
-												<option value="Jedzenie">Jedzenie</option>
-												<option value="Mieszkanie">Mieszkanie</option>
-												<option value="Telekomunikacja">Telekomunikacja</option>
-												<option value="Opieka zdrowotna">Opieka zdrowotna</option>
-												<option value="Ubranie">Ubranie</option>
-												<option value="Higiena">Higiena</option>
-												<option value="Dzieci">Dzieci</option>
-												<option value="Rozrywka">Rozrywka</option>
-												<option value="Wycieczka">Wycieczka</option>
-												<option value="Oszczędności">Oszczędności</option>
-												<option value="Na emeryture">Na emeryture</option>
-												<option value="Spłata długów">Spłata długów</option>
-												<option value="Darowizna">Darowizna</option>
-												<option value="Inne">Inne...</option>
-											
-											</select>-->
 											<select id="sel" class="form-control category" name="category" required>
 															
 												<option value="zero" selected disabled>Kategorie wydatku *</option>
@@ -230,16 +169,12 @@ $(document).ready(function(){
 													<tr><th>Limit</th><th>Dotychczas wydane</th><th>Różnica</th><th>Wydatki+wpisana kwota</th></tr>
 												</thead>
 												<tbody>
-																							
-											
-												<tr>
-												<td>1000</td>
-												<td>0</td>
-												<td>1000</td>
-												<td>400</td>
-												</tr>
-																					
-
+													<tr>
+													<td>1000</td>
+													<td>0</td>
+													<td>1000</td>
+													<td>400</td>
+													</tr>																					
 												</tbody>
 												
 											</table>

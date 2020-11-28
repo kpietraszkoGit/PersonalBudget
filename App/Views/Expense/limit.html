@@ -10,16 +10,6 @@
 <body>
 <div class="form-group col-md-12 mx-auto"> 
 
-	<!--{% set date = dateExpenseLimit %}
-	{% set dateYM = date|date("Y-m") %}
-	{% set todayDateYM = post.published_at|date("Y-m") %}
-
-	{% if dateYM == todayDateYM %}
-	<div class="b_line" style="color: #495057; text-align: center;">Data równa !!!!!!!!!!</div>
-	{% else %}	
-	<div class="b_line" style="color: #495057; text-align: center;">Data  nie nie nie równa !!!!!!!!!!</div>
-	{% endif %}-->
-
 {% for expense in limitExpenses %}	
 	
 	{% set amount = amountExpense %}
@@ -32,7 +22,7 @@
 	
 	{% elseif expense.reduction >= all  %}
 	
-<table cellpadding="10" cellspacing="0"  style="color: green; text-align: center; font-size:14px; background-color: #ffffff;">
+	<table cellpadding="10" cellspacing="0"  style="color: green; text-align: center; font-size:14px; background-color: #ffffff;">
 		<thead style="font-size:12px;">
 			<tr><th>Limit</th><th>Dotychczas wydane</th><th>Różnica</th><th>Wydatki + wpisana kwota</th></tr>
 		</thead>

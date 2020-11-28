@@ -60,7 +60,6 @@ class Profile extends Authenticated
 
             Flash::addMessage('Zmiana została zapisana');
 
-            //$this->redirect('/profile/show');
 			$this->redirect('/settings/index');
 
         } else {

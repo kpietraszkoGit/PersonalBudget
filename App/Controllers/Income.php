@@ -27,8 +27,6 @@ class Income extends Authenticated
 		$args['rowCategory'] = $settingsIncomes->selectCategoryIncome();
 
         View::renderTemplate('Income/index.html', $args);
-		
-     //   View::renderTemplate('Income/index.html');
     }
 	
 	public function createAction()

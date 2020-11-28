@@ -151,21 +151,21 @@ class User extends \Core\Model
            $this->errors[] = 'Adres e-mail jest już zajęty';
        }
 
-	// Password
-	 if (isset($this->password)) {
+		// Password
+		if (isset($this->password)) {
 
-		if (strlen($this->password) < 6) {
-			$this->errors[] = 'Hasło musi zawierać co najmniej 6 znaków';
-		}
+			if (strlen($this->password) < 6) {
+				$this->errors[] = 'Hasło musi zawierać co najmniej 6 znaków';
+			}
 
-		if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
-			$this->errors[] = 'Hasło wymaga co najmniej jednej litery';
-		}
+			if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
+				$this->errors[] = 'Hasło wymaga co najmniej jednej litery';
+			}
 
-		if (preg_match('/.*\d+.*/i', $this->password) == 0) {
-			$this->errors[] = 'Hasło wymaga co najmniej jednej cyfry';
+			if (preg_match('/.*\d+.*/i', $this->password) == 0) {
+				$this->errors[] = 'Hasło wymaga co najmniej jednej cyfry';
+			}
 		}
-	 }
     }
 	
 	
@@ -881,7 +881,6 @@ class User extends \Core\Model
 		 return false;
 	}
 	  
-	 
 	public static function takerangefrom()
 	{ 
 		$fromDay = $_POST['day1'];
@@ -921,7 +920,6 @@ class User extends \Core\Model
 		return false;
 	}
 
-	
 	public function expensesdaterange()
 	{ 
 		$user_id = $_SESSION['user_id'];
@@ -1011,8 +1009,7 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
-	
+		
 	public function addCategoryExpense()
 	{		
 		$this->validateCategoryExpenses();
@@ -1056,7 +1053,6 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-
 	public function selectCategoryIncome()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1076,8 +1072,7 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
-	
+		
 	public function selectCategoryIncomeRemove()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1097,8 +1092,7 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
-	
+		
 	public function selectCategoryExpense()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1118,8 +1112,7 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
-	
+		
 	public function selectCategoryExpenseRemove()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1140,7 +1133,6 @@ class User extends \Core\Model
    		 return false;		
 	}
 	
-
 	public function selectPay()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1160,7 +1152,6 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
 	
 	public function selectPayRemove()
 	{		
@@ -1201,7 +1192,6 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-	
 	public function removeIdCategoryIncome()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1221,7 +1211,6 @@ class User extends \Core\Model
 	    return false;		
 	}
 	
-	
 	public function removeCategoryExpense()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1240,8 +1229,7 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
-	
+		
 	public function removeIdCategoryExpense()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1282,7 +1270,6 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-	
 	public function removeIdPay()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1302,7 +1289,6 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-	
 	public function removeAllExpenses()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1319,7 +1305,6 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
 	
 	public function removeAllIncomes()
 	{		
@@ -1338,7 +1323,6 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-	
 	public function removeUserFromApp()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1355,7 +1339,6 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
 	
 	public function removeAllIncomesCategory()
 	{		
@@ -1374,7 +1357,6 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-	
 	public function removeAllExpensesCategory()
 	{		
 		$user_id = $_SESSION['user_id'];
@@ -1391,7 +1373,6 @@ class User extends \Core\Model
 
     		return false;		
 	}
-	
 	
 	public function removeAllPaymentCategory()
 	{		
@@ -1410,54 +1391,52 @@ class User extends \Core\Model
     		return false;		
 	}
 	
-
 	public function updateCategoryIncome()
-    	{
-		$this->validateCategoryEditIncomes();
-		$user_id = $_SESSION['user_id'];
-        
+	{
+	$this->validateCategoryEditIncomes();
+	$user_id = $_SESSION['user_id'];
+	
 		if (empty($this->errors)) {
 
-		    $sql = "UPDATE incomes_category_assigned_to_users SET name = :categoryEditIncomes WHERE name = :categoryIncomes AND user_id='$user_id'";
+			$sql = "UPDATE incomes_category_assigned_to_users SET name = :categoryEditIncomes WHERE name = :categoryIncomes AND user_id='$user_id'";
 
 
-		    $db = static::getDB();
-		    $stmt = $db->prepare($sql);
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
 
-		    $stmt->bindValue(':categoryIncomes', $this->categoryIncomes, PDO::PARAM_STR);
-		    $stmt->bindValue(':categoryEditIncomes', $this->categoryEditIncomes, PDO::PARAM_STR);
+			$stmt->bindValue(':categoryIncomes', $this->categoryIncomes, PDO::PARAM_STR);
+			$stmt->bindValue(':categoryEditIncomes', $this->categoryEditIncomes, PDO::PARAM_STR);
 
-		    return $stmt->execute();
+			return $stmt->execute();
 		}
 
-        	return false;
-    	}
-	
+		return false;
+	}
 	
 	public function updateCategoryExpense()
-    	{
+	{
 		$this->validateCategoryEditExpenses();
 		$user_id = $_SESSION['user_id'];
-        
+	
 		if (empty($this->errors)) {
 
-		    $sql = "UPDATE expenses_category_assigned_to_users SET name = :categoryEditExpenses WHERE name = :categoryExpenses AND user_id='$user_id'";
+			$sql = "UPDATE expenses_category_assigned_to_users SET name = :categoryEditExpenses WHERE name = :categoryExpenses AND user_id='$user_id'";
 
 
-		    $db = static::getDB();
-		    $stmt = $db->prepare($sql);
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
 
-		    $stmt->bindValue(':categoryExpenses', $this->categoryExpenses, PDO::PARAM_STR);
-		    $stmt->bindValue(':categoryEditExpenses', $this->categoryEditExpenses, PDO::PARAM_STR);
+			$stmt->bindValue(':categoryExpenses', $this->categoryExpenses, PDO::PARAM_STR);
+			$stmt->bindValue(':categoryEditExpenses', $this->categoryEditExpenses, PDO::PARAM_STR);
 
-		    return $stmt->execute();
+			return $stmt->execute();
 		}
 
-        	return false;
-    	}
+		return false;
+	}
 	
 	public function updatePay()
-    	{
+    {
 		$this->validateUpdatePay();
 		$user_id = $_SESSION['user_id'];
         
@@ -1480,8 +1459,7 @@ class User extends \Core\Model
 	
 	/////////////////////////////////////////////////////////////////////////////////////send to database limit
 	public function limitCategoryExpense()
-    	{
-		//$this->validateCategoryEditExpenses();
+    {
 		$user_id = $_SESSION['user_id'];
         
 		if (empty($this->errors)) {
@@ -1496,15 +1474,15 @@ class User extends \Core\Model
 		    $stmt->bindValue(':amountLimit', $this->amountLimit, PDO::PARAM_STR);
 
 		    return $stmt->execute();
-        	}
+        }
 
 		return false;
-	  }
+	}
 	
 	
 	////////////////////////////////////////////////////////////////////////////////////dwonload limit from database
 	public function selectLimitExpense()
-    	{
+    {
 		$user_id = $_SESSION['user_id'];
 		$categoryName = $_POST['nameSelect'];
 		$dateExpenseLimit = $_POST['nameDate'];
@@ -1524,7 +1502,7 @@ class User extends \Core\Model
 			return $limitExpenses;
 		}
 
-	    	return false;		
+	    return false;		
 	}
 	
 	

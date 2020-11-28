@@ -61,12 +61,10 @@ class Expense extends Authenticated
 		$limit = new User($_POST);
 		$allExpenses = new User($_POST);
 		$allamount = new User($_POST);
-		//$dateExpense = new User($_POST);
 		$args['limitExpenses'] = $limit->selectLimitExpense();
 		$args['sumrowAllExpenses'] =$allExpenses->sumExpensesAll();
 		$args['amountExpense']=$allamount->amountExpenseWrite();
-		//$args['dateExpenseLimit']=$dateExpense->limitDate();
-		
+
 		View::renderTemplate('Expense/limit.html', $args);
 
     }

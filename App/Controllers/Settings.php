@@ -40,7 +40,6 @@ class Settings extends Authenticated
 		$settingsPay = new User($_POST);
 		$args=[];
 
-		//$args['rowCategory'] = $settingsIncomes->selectCategoryIncome();
 		$args['rowCategory'] = $settingsExpenses->selectCategoryExpense();
 		$args['rowCategoryIncomes'] = $settingsIncomesRemove->selectCategoryIncomeRemove();
 		$args['rowCategoryExpenses'] = $settingsExpensesRemove->selectCategoryExpenseRemove();
@@ -68,7 +67,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Nowa kategoria przychodów nie została dodana bo już istnieje', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
 
     }
@@ -87,7 +85,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Nowa kategoria wydatków nie została dodana bo już istnieje', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
     }
 	
@@ -105,7 +102,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Nowy sposób płatności nie został dodany bo już istnieje', Flash::WARNING);
             $this->redirect('/settings/index');
-			//View::renderTemplate('Settings/index.html');
         }
     }
 	
@@ -123,7 +119,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Wybrana kategoria przychodów nie została usunięta', Flash::WARNING);
             $this->redirect('/settings/index');
-			//View::renderTemplate('Settings/index.html');
         }
 	}
 	
@@ -142,7 +137,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Wybrana kategoria wydatków nie została usunięta', Flash::WARNING);
             $this->redirect('/settings/index');
-			//View::renderTemplate('Settings/index.html');
         }
 	}
 
@@ -161,7 +155,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Wybrany sposób płatności nie został usunięty', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
 	}
 	
@@ -179,7 +172,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Przychody i wydatki nie zostały usunięte', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
 	}
 	
@@ -201,13 +193,11 @@ class Settings extends Authenticated
 			
 			Flash::addMessage('Twoje konto zostało usunięte');
             $this->redirect('/logout');
-			//$this->redirect('/home/index');
 
         } else {
 
 			Flash::addMessage('Twoje konto nie zostało usunięte', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
 	}
 	
@@ -225,7 +215,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Wybrana kategoria przychodów nie została zaktualizowana, bo już istnieje', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
     }
 	
@@ -243,7 +232,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Wybrana kategoria wydatków nie została zaktualizowana, bo już istnieje', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
     }
 	
@@ -261,7 +249,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Limit dla wybranego wydatku nie został wprowadzony', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -279,7 +266,6 @@ class Settings extends Authenticated
 
 			Flash::addMessage('Wybrany sposób płatności nie został zaktualizowany, bo już istnieje', Flash::WARNING);
 			$this->redirect('/settings/index');
-            //View::renderTemplate('Settings/index.html');
         }
     }
     /**

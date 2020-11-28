@@ -4,30 +4,7 @@
 
 {% block footer %}
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--AJAX-->
 <script>
-  /* $(document).ready(function() {
-            /**
-             * Validate the form
-             */
-	/*	 $('#addExpenses').validate({
-                rules: {
-					amount: 'required',
-					pay: 'required',
-					category: {
-                        required: true
-                    }
-                },
-                messages: {
-					amount: 'To pole jest wymagane',
-					pay: 'To pole jest wymagane',
-					category:  {
-						required: 'To pole jest wymagane'
-                    }
-				}
-		});
-	});*/
-
 window.onload = function today()
 {
 		let d = new Date();
@@ -40,23 +17,6 @@ window.onload = function today()
 }
 
 ///////////////////////////////////////////////////AJAX/////////////////////////////////////////////////////////
-
-/*$(document).ready(function(){
-    $("#sel").change(function(){
-        var nameSelectCategory = $(this).children("option:selected").val();
-		var amountExpense = $("#inputAmount").val();
-		var dateExpense = $("#days").val();
-		//alert(dateExpense);
-		$("#reduction").load("/expense/new", {
-			nameSelect: nameSelectCategory,
-			nameAmount: amountExpense,
-			nameDate: dateExpense
-		});
-    });
-	
-});*/
-
-
 $(document).ready(function(){
     $("#sel").change(function(){
         var nameSelectCategory = $(this).children("option:selected").val();
@@ -89,69 +49,10 @@ $(document).ready(function(){
 					nameAmount: amountExpense,
 					nameDate: dateExpense
 				});
-				
-				/*$("#inputAmount").on("input", function(){
-				var amountExpense = $("#inputAmount").val();
-				//alert(amountExpense);
-
-				$("#reduction").load("/expense/new", {
-					nameSelect: nameSelectCategory,
-					nameAmount: amountExpense,
-					nameDate: dateExpense
-				});
-			});*/
-				
 		});
     });
 	
 });
-
-/*$(document).ready(function(){
-    $("#inputAmount").on("input", function(){
-        var amountExpense = $("#inputAmount").val();
-		alert(amountExpense);
-    });
-});*/
-
-/*$(document).ready(function(){
-	$("#inputAmount").on("input", function(){
-		var amountExpense = $("#inputAmount").val();
-		var dateExpense = $("#days").val();
-		
-		if (amountExpense != 0)
-		{
-			
-			$("#sel").change(function(){
-				var nameSelectCategory = $(this).children("option:selected").val();
-			
-					$("#reduction").load("/expense/new", {
-						nameSelect: nameSelectCategory,
-						nameAmount: amountExpense,
-						nameDate: dateExpense
-					});
-					
-					
-
-					//petlawykonuj to tyle razy do puki ktoś nie wybierze nowej kategorii
-						$("#inputAmount").on("input", function(){
-						var amountExpense = $("#inputAmount").val();
-						//alert(amountExpense);
-
-						$("#reduction").load("/expense/new", {
-							nameSelect: nameSelectCategory,
-							nameAmount: amountExpense,
-							nameDate: dateExpense
-						});
-					});
-				
-				
-			});
-		
-		}
-		
-	});
-});*/
-	
 </script>
 
 {% endblock %}
@@ -198,8 +99,6 @@ $(document).ready(function(){
 											</div>
 
 											<select class="form-control category" name="pay" required>
-														
-												<!--<option value="zero" selected disabled>Sposób płatności *</option>-->
 
 												{% for pay in rowPay %}
 												
@@ -216,8 +115,6 @@ $(document).ready(function(){
 											</div>
 
 											<select id="sel" class="form-control category" name="category" required>
-															
-												<!--<option value="zero" selected disabled>Kategorie wydatku *</option>-->
 
 												{% for category in rowCategoryExpenses %}
 												
