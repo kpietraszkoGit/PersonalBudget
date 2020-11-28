@@ -16,34 +16,34 @@ use \App\Auth;
 class User extends \Core\Model
 {
 
-     /**
-     * Error messages
-     *
-     * @var array
-     */
-    public $errors = [];
+   /**
+   * Error messages
+   *
+   * @var array
+   */
+   public $errors = [];
 
-    /**
-     * Class constructor
-     *
-     * @param array $data  Initial property values (optional)
-     *
-     * @return void
-     */
-    public function __construct($data = [])
-    {
-        foreach ($data as $key => $value) {
-            $this->$key = $value;
-        };
-    }
+   /**
+   * Class constructor
+   *
+   * @param array $data  Initial property values (optional)
+   *
+   * @return void
+   */
+   public function __construct($data = [])
+   {
+      foreach ($data as $key => $value) {
+      $this->$key = $value;
+      };
+   }
 
   /**
    * Save the user model with the current property values
    *
    * @return void
    */
-  public function save()
-  {
+   public function save()
+   {
 	$this->validate();
 
     if (empty($this->errors)) {  
@@ -68,7 +68,7 @@ class User extends \Core\Model
     }
 
     return false;
-  }
+   }
   
   
   /*add from default table*/
@@ -150,22 +150,21 @@ class User extends \Core\Model
        if (static::emailExists($this->email, $this->id ?? null)) {
            $this->errors[] = 'Adres e-mail jest już zajęty';
        }
+	  // Password
+	  if (isset($this->password)) {
 
-		// Password
-		if (isset($this->password)) {
-
-			if (strlen($this->password) < 6) {
-				$this->errors[] = 'Hasło musi zawierać co najmniej 6 znaków';
-			}
-
-			if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
-				$this->errors[] = 'Hasło wymaga co najmniej jednej litery';
-			}
-
-			if (preg_match('/.*\d+.*/i', $this->password) == 0) {
-				$this->errors[] = 'Hasło wymaga co najmniej jednej cyfry';
-			}
+		if (strlen($this->password) < 6) {
+			$this->errors[] = 'Hasło musi zawierać co najmniej 6 znaków';
 		}
+
+		if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
+			$this->errors[] = 'Hasło wymaga co najmniej jednej litery';
+		}
+
+		if (preg_match('/.*\d+.*/i', $this->password) == 0) {
+			$this->errors[] = 'Hasło wymaga co najmniej jednej cyfry';
+		}
+	  }
     }
 	
 	
@@ -585,7 +584,7 @@ class User extends \Core\Model
 	   *
 	   * @return void
 	   */
-	  public function saveIncome()
+          public function saveIncome()
 	  {
 
 		$user_id = $_SESSION['user_id'];
@@ -657,8 +656,7 @@ class User extends \Core\Model
 		
 		return false;
 	  }
-	  
-	  
+	  	  
 	  public function expensesmonthlybalance()
 	  { 
 	    $user_id = $_SESSION['user_id'];
@@ -697,7 +695,7 @@ class User extends \Core\Model
 		}
 		
 		 return false;
-	   }
+	  }
 	   
 	  public function sumexpensesmonthlybalance()
 	  { 
@@ -717,8 +715,7 @@ class User extends \Core\Model
 		}
 		
 		 return false;
-	   }
-
+	}
 
 	public function incomeslastmonthlybalance()
 	{	
@@ -799,8 +796,7 @@ class User extends \Core\Model
 		
 		 return false;
 	}
-	
-	
+		
 	public function incomesyearbalance()
 	{ 
 		$user_id = $_SESSION['user_id'];
@@ -1393,8 +1389,8 @@ class User extends \Core\Model
 	
 	public function updateCategoryIncome()
 	{
-	$this->validateCategoryEditIncomes();
-	$user_id = $_SESSION['user_id'];
+		$this->validateCategoryEditIncomes();
+		$user_id = $_SESSION['user_id'];
 	
 		if (empty($this->errors)) {
 
@@ -1436,7 +1432,7 @@ class User extends \Core\Model
 	}
 	
 	public function updatePay()
-    {
+    	{
 		$this->validateUpdatePay();
 		$user_id = $_SESSION['user_id'];
         
@@ -1455,11 +1451,11 @@ class User extends \Core\Model
 		}
 
         	return false;
-    }
+    	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////send to database limit
 	public function limitCategoryExpense()
-    {
+    	{
 		$user_id = $_SESSION['user_id'];
         
 		if (empty($this->errors)) {
@@ -1474,7 +1470,7 @@ class User extends \Core\Model
 		    $stmt->bindValue(':amountLimit', $this->amountLimit, PDO::PARAM_STR);
 
 		    return $stmt->execute();
-        }
+        	}
 
 		return false;
 	}
@@ -1482,7 +1478,7 @@ class User extends \Core\Model
 	
 	////////////////////////////////////////////////////////////////////////////////////dwonload limit from database
 	public function selectLimitExpense()
-    {
+    	{
 		$user_id = $_SESSION['user_id'];
 		$categoryName = $_POST['nameSelect'];
 		$dateExpenseLimit = $_POST['nameDate'];
