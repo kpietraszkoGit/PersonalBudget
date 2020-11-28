@@ -1,4 +1,11 @@
+
 # Welcome to the PHP MVC framework
+
+## PersonalBudget application using this framework
+
+Personal Budget Project is a web application to assist you in managing your personal budget. There you can add your income and expenses and view the balance from different periods. In terms of expense, you can enter an expense limit to control how much money has been spent in a given month.
+This application was written according to the five principles of SOLID and it was based on a framework created from scratch using the MVC pattern. It uses technologies such as: HTML5, CSS3, Bootstrap, JavaScript, jQuery, PHP, MySQL, Twig and Ajax.
+
 
 This is a simple MVC framework for building web applications in PHP. It's free and [open-source](LICENSE).
 
