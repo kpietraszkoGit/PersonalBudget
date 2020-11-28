@@ -37,7 +37,7 @@ class User extends \Core\Model
       };
    }
 
-  /**
+   /**
    * Save the user model with the current property values
    *
    * @return void
@@ -46,7 +46,7 @@ class User extends \Core\Model
    {
 	$this->validate();
 
-    if (empty($this->errors)) {  
+     if (empty($this->errors)) {  
 	
 	$password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
@@ -65,11 +65,10 @@ class User extends \Core\Model
 	$_SESSION['last_id'] = $db->lastInsertId();
 
 	return true;
-    }
+     }
 
     return false;
    }
-  
   
   /*add from default table*/
    public function addDefaultTableIncomes()
@@ -90,8 +89,7 @@ class User extends \Core\Model
 
     return false;
    }
-  
-  
+    
    public function addDefaultTableExpenses()
    {
 
@@ -110,7 +108,6 @@ class User extends \Core\Model
 
     return false;
    }
-  
   
    public function addDefaultTablePayment()
    {
@@ -131,7 +128,7 @@ class User extends \Core\Model
     return false;
    }
   
-  /**
+     /**
      * Validate current property values, adding valiation error messages to the errors array property
      *
      * @return void
@@ -166,8 +163,7 @@ class User extends \Core\Model
 		}
 	  }
     }
-	
-	
+		
     public function validateCategory()
     {
 
@@ -179,8 +175,7 @@ class User extends \Core\Model
             $this->errors[] = 'Kategoria już istnieje';
         }
     }
-	
-	
+		
     public function validateCategoryExpenses()
     {
 
@@ -192,7 +187,6 @@ class User extends \Core\Model
             $this->errors[] = 'Kategoria już istnieje';
         }
     }
-	
 	
     public function validatePay()
     {
@@ -263,7 +257,6 @@ class User extends \Core\Model
         return false;
     }
 	
-	
     public static function categoryIncomeExists($categoryAddIncomes, $ignore_id = null)
     {
         $user = static::findByCategoryIncome($categoryAddIncomes);
@@ -277,7 +270,6 @@ class User extends \Core\Model
         return false;
     }
 	
-	
     public static function categoryExpenseExists($categoryAddExpenses, $ignore_id = null)
     {
         $user = static::findByCategoryExpense($categoryAddExpenses);
@@ -290,7 +282,6 @@ class User extends \Core\Model
 
         return false;
     }
-
 
     public static function addPayExists($addPay, $ignore_id = null)
     {
@@ -366,7 +357,6 @@ class User extends \Core\Model
         return $stmt->fetch();
     }
 	
-	
     public static function findByCategoryIncome($categoryAddIncomes)
     {
         $sql = 'SELECT * FROM incomes_category_assigned_to_users WHERE name = :categoryAddIncomes';
@@ -381,7 +371,6 @@ class User extends \Core\Model
 
         return $stmt->fetch();
     }
-	
 	
     public static function findByCategoryExpense($categoryAddExpenses)
     {
@@ -1475,7 +1464,6 @@ class User extends \Core\Model
 		return false;
 	}
 	
-	
 	////////////////////////////////////////////////////////////////////////////////////dwonload limit from database
 	public function selectLimitExpense()
     	{
@@ -1500,7 +1488,6 @@ class User extends \Core\Model
 
 	    return false;		
 	}
-	
 	
 	public function sumExpensesAll()
 	{ 
